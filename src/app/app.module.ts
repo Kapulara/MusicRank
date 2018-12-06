@@ -14,8 +14,9 @@ import '../styles/include.scss';
 import { AppComponent } from './app.component';
 import { ROUTES } from './app.routes';
 import { AppState } from './app.service';
-import { NoContentComponent } from './core/no-content';
+import { CoreModule } from './core/core.module';
 import { HomeModule } from './modules/home/home.module';
+import { LoginModule } from './modules/login/login.module';
 import { SharedModule } from './shared/shared.module';
 
 // Application wide providers
@@ -29,8 +30,7 @@ const APP_PROVIDERS = [
 @NgModule({
   bootstrap: [ AppComponent ],
   declarations: [
-    AppComponent,
-    NoContentComponent
+    AppComponent
   ],
   /**
    * Import Angular's modules.
@@ -41,14 +41,16 @@ const APP_PROVIDERS = [
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(ROUTES, {
-      useHash: Boolean(history.pushState) === false,
+      useHash: true,
       preloadingStrategy: PreloadAllModules
     }),
 
     // Modules
     HomeModule,
+    LoginModule,
 
     // Extra
+    CoreModule,
     SharedModule
   ],
   /**

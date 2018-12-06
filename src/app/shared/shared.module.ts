@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { MenuComponent } from './menu/menu.component';
 import { MenuService } from './menu/menu.service';
+import { NoContentComponent } from './no-content/no-content.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { SideBarService } from './side-bar/side-bar.service';
 import { TopBarComponent } from './top-bar/top-bar.component';
@@ -22,12 +23,14 @@ import { TopBarComponent } from './top-bar/top-bar.component';
   declarations: [
     SideBarComponent,
     TopBarComponent,
-    MenuComponent
+    MenuComponent,
+    NoContentComponent
   ],
   exports: [
     SideBarComponent,
     TopBarComponent,
-    MenuComponent
+    MenuComponent,
+    NoContentComponent
   ],
   providers: [
     SideBarService,
