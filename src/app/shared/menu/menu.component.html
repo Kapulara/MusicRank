@@ -1,0 +1,27 @@
+<div class="menu"
+     [ngClass]="{ 'menu--visible': menuService.isVisible }">
+  <div class="menu__outer-click" (click)="menuService.setVisible(false)"></div>
+  <div class="menu__container">
+    <div class="menu-list">
+      <div class="menu-list__item menu-list__item--bold">
+        Home
+      </div>
+      <div class="menu-list__item menu-list__item--bold">
+        About
+      </div>
+      <div class="menu-list__item menu-list__item--bold">
+        Product
+      </div>
+      <div class="menu-list__divider"></div>
+      <div class="menu-list__item">
+        Login
+      </div>
+      <div class="menu-list__item">
+        Register
+      </div>
+    </div>
+    <div class="menu-img">
+      <img src="/assets/img/background-menu.png" alt="Background Menu">
+    </div>
+  </div>
+</div>

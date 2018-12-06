@@ -1,0 +1,48 @@
+
+
+@mixin button($foreground-color: $lighter-text-color, $background-color: $white-color, $border-color: $foreground-color) {
+  min-width: 200px;
+  min-height: 45px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: $foreground-color;
+  border: solid 2px $border-color;
+  background: $background-color;
+  box-shadow: 0 3px 4px 0 rgba(214, 214, 214, 0.50);
+  font-weight: bold;
+  border-radius: 5px;
+
+  cursor: pointer;
+
+  margin-right: 20px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    background: $foreground-color;
+    color: $background-color;
+  }
+}
+
+.button {
+  @include button();
+
+  opacity: 1;
+
+  &.button--invert {
+    @include button($white-color, $lighter-text-color, $lighter-text-color)
+  }
+
+  &.button--yellow {
+    @include button($primary-color);
+
+    &.button--invert {
+      @include button($white-color, $primary-color, $primary-color);
+    }
+  }
+}

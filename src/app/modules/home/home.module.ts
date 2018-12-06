@@ -3,6 +3,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { SharedModule } from '../../shared/shared.module';
+import { HomeContentComponent } from './home-content/home-content.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { HOME_ROUTES } from './home.routes';
 
@@ -14,9 +16,11 @@ import { HOME_ROUTES } from './home.routes';
     BrowserModule,
     HttpClientModule,
 
+    SharedModule,
+
     HOME_ROUTES
   ],
-  declarations: [ HomePageComponent ]
+  declarations: [ HomePageComponent, HomeContentComponent ]
 })
 export class HomeModule {
 }

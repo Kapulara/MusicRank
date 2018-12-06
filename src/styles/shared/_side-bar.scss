@@ -1,0 +1,34 @@
+.side-bar {
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+
+  img {
+    position: absolute;
+    user-select: none;
+    pointer-events: none;
+    z-index: 1;
+
+    top: 50%;
+    left: 50%;
+
+    min-width: 100%;
+    max-height: 100%;
+
+    -webkit-transform-origin: center center;
+    -moz-transform-origin: center center;
+    -ms-transform-origin: center center;
+    -o-transform-origin: center center;
+    transform-origin: center center;
+
+    filter: blur(0px);
+    transform: translate(-50%, -50%) scale(1);
+    transition: all .25s ease-out;
+    visibility: visible;
+  }
+
+  &--blur img {
+    filter: blur(5px);
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}

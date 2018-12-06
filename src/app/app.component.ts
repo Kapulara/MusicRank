@@ -15,13 +15,9 @@ export const ROOT_SELECTOR = 'app';
   encapsulation: ViewEncapsulation.None,
   templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   constructor(
     public appState: AppState
   ) {
-  }
-
-  public ngOnInit() {
-    console.log('Initial App State', this.appState.state);
   }
 }

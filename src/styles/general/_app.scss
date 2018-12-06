@@ -1,0 +1,68 @@
+.app-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+
+  .app-container__left {
+    position: relative;
+    width: 30%;
+    height: 100%;
+
+    transition: width .25s ease-out;
+  }
+
+  .app-container__right {
+    position: relative;
+    width: 70%;
+    height: 100%;
+
+    transition: width .25s ease-out;
+  }
+
+  &.app-container--small {
+    .app-container__left {
+      width: 10%;
+    }
+
+    .app-container__right {
+      width: 90%;
+    }
+  }
+}
+
+body {
+  height: 100%;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  background: #fff;
+  height: 100%;
+}
+
+html {
+  height: 100%;
+  overflow: auto;
+}
+
+router-outlet {
+  display: none;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+}
+
+.container--margin {
+  margin: 50px auto;
+}
+
+.hidden {
+  display: none;
+}

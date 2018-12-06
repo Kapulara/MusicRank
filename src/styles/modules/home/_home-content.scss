@@ -1,0 +1,43 @@
+
+.home-content {
+  max-width: 585px;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-left: 80px;
+
+
+  .home-content__welcome {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    color: $lightest-text-color;
+    letter-spacing: 0;
+    transition: color .25s ease-out, margin-top .25s ease-out;
+  }
+
+  .home-content__header {
+    font-family: 'Poppins', sans-serif;
+    font-size: 48px;
+    font-weight: bold;
+    color: $text-color;
+    letter-spacing: 0;
+  }
+
+  .home-content__description {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 10px;
+    color: #484848;
+    letter-spacing: 0;
+  }
+
+  .home-content__buttons {
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 40px;
+  }
+}

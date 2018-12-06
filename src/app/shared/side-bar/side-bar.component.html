@@ -1,0 +1,10 @@
+<div class="side-bar"
+     #imageContainer
+     [ngClass]="{ 'side-bar--blur': sideBarService.blur }">
+  <img *ngFor="let image of images"
+       [attr.id]="'image-'+image.index"
+       [attr.alt]="'Dynamic Sidebar Image '+image.index"
+       [attr.src]="image.source"
+       [style.z-index]="image['z-index']"
+       [ngClass]="{'image--visible': image.visible }">
+</div>
