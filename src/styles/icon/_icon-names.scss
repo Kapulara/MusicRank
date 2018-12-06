@@ -1,0 +1,138 @@
+/*------------------------
+	icons
+-------------------------*/
+@function unicode($str) {
+  @return unquote("\"\\#{$str}\"");
+}
+
+$mr-menu-34: unicode(ea02);
+$mr-d-remove: unicode(ea03);
+$mr-e-remove: unicode(ea04);
+$mr-logo-facebook: unicode(ea05);
+$mr-logo-fb-simple: unicode(ea06);
+$mr-logo-messenger: unicode(ea07);
+$mr-logo-twitter: unicode(ea08);
+$mr-logo-spotify: unicode(ea09);
+$mr-disk-1: unicode(ea0a);
+$mr-disk-2: unicode(ea0b);
+$mr-time-countdown-1: unicode(ea0c);
+$mr-time-countdown-2: unicode(ea0d);
+$mr-small-up: unicode(ea0e);
+$mr-small-down: unicode(ea0f);
+$mr-small-left: unicode(ea10);
+$mr-small-right: unicode(ea11);
+$mr-stre-down: unicode(ea12);
+$mr-stre-left: unicode(ea13);
+$mr-stre-right: unicode(ea14);
+$mr-stre-up: unicode(ea15);
+$mr-zoom-split-1: unicode(ea16);
+$mr-zoom-bold: unicode(ea17);
+$mr-zoom-2: unicode(ea18);
+$mr-zoom-split-2: unicode(ea19);
+$mr-users-mm-1: unicode(ea1a);
+$mr-users-mm-2: unicode(ea1b);
+
+.mr-menu-34::before {
+  content: $mr-menu-34;
+}
+
+.mr-d-remove::before {
+  content: $mr-d-remove;
+}
+
+.mr-e-remove::before {
+  content: $mr-e-remove;
+}
+
+.mr-logo-facebook::before {
+  content: $mr-logo-facebook;
+}
+
+.mr-logo-fb-simple::before {
+  content: $mr-logo-fb-simple;
+}
+
+.mr-logo-messenger::before {
+  content: $mr-logo-messenger;
+}
+
+.mr-logo-twitter::before {
+  content: $mr-logo-twitter;
+}
+
+.mr-logo-spotify::before {
+  content: $mr-logo-spotify;
+}
+
+.mr-disk-1::before {
+  content: $mr-disk-1;
+}
+
+.mr-disk-2::before {
+  content: $mr-disk-2;
+}
+
+.mr-time-countdown-1::before {
+  content: $mr-time-countdown-1;
+}
+
+.mr-time-countdown-2::before {
+  content: $mr-time-countdown-2;
+}
+
+.mr-small-up::before {
+  content: $mr-small-up;
+}
+
+.mr-small-down::before {
+  content: $mr-small-down;
+}
+
+.mr-small-left::before {
+  content: $mr-small-left;
+}
+
+.mr-small-right::before {
+  content: $mr-small-right;
+}
+
+.mr-stre-down::before {
+  content: $mr-stre-down;
+}
+
+.mr-stre-left::before {
+  content: $mr-stre-left;
+}
+
+.mr-stre-right::before {
+  content: $mr-stre-right;
+}
+
+.mr-stre-up::before {
+  content: $mr-stre-up;
+}
+
+.mr-zoom-split-1::before {
+  content: $mr-zoom-split-1;
+}
+
+.mr-zoom-bold::before {
+  content: $mr-zoom-bold;
+}
+
+.mr-zoom-2::before {
+  content: $mr-zoom-2;
+}
+
+.mr-zoom-split-2::before {
+  content: $mr-zoom-split-2;
+}
+
+.mr-users-mm-1::before {
+  content: $mr-users-mm-1;
+}
+
+.mr-users-mm-2::before {
+  content: $mr-users-mm-2;
+}
+
