@@ -27,6 +27,19 @@
     visibility: visible;
   }
 
+  .image {
+    opacity: 0;
+    -webkit-transition: opacity .25s ease-out;
+    -moz-transition: opacity .25s ease-out;
+    -ms-transition: opacity .25s ease-out;
+    -o-transition: opacity .25s ease-out;
+    transition: opacity .25s ease-out;
+
+    &--visible {
+      opacity: 1;
+    }
+  }
+
   &--blur img {
     filter: blur(5px);
     transform: translate(-50%, -50%) scale(1.2);

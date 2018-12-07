@@ -8,15 +8,6 @@ import { SideBarService } from './side-bar.service';
 })
 export class SideBarComponent implements AfterViewInit {
 
-  public images = [
-    {
-      'index': 1,
-      'z-index': 1,
-      'visible': false,
-      'source': '/assets/img/background/junior-pereira-73904-unsplash.jpg'
-    }
-  ];
-
   /**
    * Image Reference
    */

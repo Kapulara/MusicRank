@@ -1,13 +1,23 @@
 import { Component } from '@angular/core';
+import { SideBarService } from '../side-bar/side-bar.service';
+import { SideBarStyles } from '../side-bar/side-bar.styles';
 
 @Component({
   selector: 'no-content',
   template: `
-    <div>
-      <h1>404: page missing <i class="mr-icon mr-e-remove"></i></h1>
-    </div>
+    <mr-top-bar></mr-top-bar>
+    <mr-center>
+      <h1>Page not found...</h1>
+      <br/>
+      <div class="button button--yellow"
+           [routerLink]="'/'">
+        Home
+      </div>
+    </mr-center>
   `
 })
 export class NoContentComponent {
-
+  constructor(private sideBarService: SideBarService) {
+    this.sideBarService.set(SideBarStyles.NotFound);
+  }
 }

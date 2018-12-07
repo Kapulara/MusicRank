@@ -1,17 +1,20 @@
 <div class="top-bar">
   <div class="top-bar__left">
     <a class="top-bar__item"
-       [routerLink]="'/'">
+       [routerLinkActive]="'top-bar__item--active'"
+       [routerLink]="'/home'">
       Home
     </a>
     <a class="top-bar__item"
+       [routerLinkActive]="'top-bar__item--active'"
        [routerLink]="'/about'">
       About
     </a>
   </div>
   <div class="top-bar__right">
     <a class="top-bar__item"
-       [routerLink]="'/login'">
+       [routerLinkActive]="'top-bar__item--active'"
+       [routerLink]="'/login/redirect'">
       Login
     </a>
   </div>

@@ -1,0 +1,54 @@
+
+
+@keyframes fadeInOpacity {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+@keyframes rotationAndTransform {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(359deg);
+  }
+}
+
+.page-loading {
+  height: 80px;
+  width: 80px;
+
+  border: 6px solid rgba(86, 85, 91, .15);
+  border-top-color: rgba(245, 182, 4, .8);
+  border-radius: 100%;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: 0 auto;
+  z-index: 300;
+  transform: translate(-50%, -50%) rotate(90deg);
+  box-sizing: border-box;
+
+  animation: rotationAndTransform 1s infinite ease;
+}
+
+.page-loading-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: 0 auto;
+  padding-top: 200px;
+  z-index: 300;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  font-size: 18px;
+
+  animation: fadeInOpacity 1s ease-out;
+  opacity: 1;
+}

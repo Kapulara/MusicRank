@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as _ from 'lodash';
 import { Subject } from 'rxjs';
 import { AppState } from '../../app.service';
 
@@ -30,6 +31,21 @@ export class SideBarService {
    */
   public imgLoaded$: Subject<string> = new Subject();
 
+  public index = 1;
+  public zIndex = 9999;
+
+  /**
+   * Images
+   */
+  public images = [
+    {
+      'index': _.clone(this.index),
+      'z-index': _.clone(this.zIndex),
+      'visible': true,
+      'source': '/assets/img/background/junior-pereira-73904-unsplash.jpg'
+    }
+  ];
+
   /**
    * @param appState
    */
@@ -56,27 +72,19 @@ export class SideBarService {
     source: string,
     waitForLoad = false
   ) {
-    this.imgSrc = source;
-    this.imgSrc$.next(this.imgSrc);
+    this.index++;
+    this.zIndex--;
 
-    if ( waitForLoad ) {
-      const result = await new Promise((
-        resolve
-      ) => {
-        this.imgLoaded$.subscribe((loadedSource) => {
-          if ( loadedSource === source ) {
-            resolve(true);
-            return;
-          }
+    this.images.push({
+      'index': _.clone(this.index),
+      'z-index': _.clone(this.zIndex),
+      'visible': true,
+      'source': source
+    });
 
-          resolve(false);
-        });
-      });
-
-      return result;
-    }
-
-    return;
+    this.images
+      .filter((image) => image.index !== this.index)
+      .map((image) => image.visible = false);
   }
 
   public setBlur(state: boolean) {
@@ -85,5 +93,21 @@ export class SideBarService {
 
   public setSmall(state: boolean) {
     this.appState.small = state;
+  }
+
+  public async set(settings: { small?: boolean; blur?: boolean; source?: string; waitLoadSource?: boolean; }) {
+    const small = _.get(settings, 'small', false);
+    const blur = _.get(settings, 'blur', false);
+    const source = _.get(settings, 'source', '/assets/img/background/junior-pereira-73904-unsplash.jpg');
+    const waitLoadSource = _.get(settings, 'waitLoadSource', false);
+
+    this.setSmall(small);
+    this.setBlur(blur);
+
+    if ( waitLoadSource ) {
+      await this.setImageSource(source);
+    } else {
+      this.setImageSource(source);
+    }
   }
 }

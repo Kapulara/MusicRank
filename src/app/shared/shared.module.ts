@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { CenterComponent } from './center/center.component';
 import { MenuComponent } from './menu/menu.component';
 import { MenuService } from './menu/menu.service';
 import { NoContentComponent } from './no-content/no-content.component';
@@ -24,13 +25,15 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     SideBarComponent,
     TopBarComponent,
     MenuComponent,
-    NoContentComponent
+    NoContentComponent,
+    CenterComponent
   ],
   exports: [
     SideBarComponent,
     TopBarComponent,
     MenuComponent,
-    NoContentComponent
+    NoContentComponent,
+    CenterComponent
   ],
   providers: [
     SideBarService,
