@@ -1,0 +1,20 @@
+<mr-top-bar></mr-top-bar>
+<mr-center>
+  <h1>Page not found.</h1>
+  <br/>
+  <small>Oh no...</small>
+  <br/>
+  <br/>
+  <br/>
+  <div *ngIf="securityService.user === null"
+       class="button button--yellow"
+       [routerLink]="'/'">
+    Home
+  </div>
+  <div *ngIf="securityService.user !== null"
+       class="button button--yellow"
+       [routerLink]="'/dashboard'">
+    Dashboard
+  </div>
+</mr-center>
+

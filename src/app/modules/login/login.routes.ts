@@ -1,7 +1,10 @@
 import { RouterModule, Routes } from '@angular/router';
+import { AuthAppGuard } from '../../core/security/auth-app.guard';
+import { LoginAccountPageComponent } from './login-account-page/login-account-page.component';
 import { LoginFailurePageComponent } from './login-failure-page/login-failure-page.component';
-import { LoginRedirectComponent } from './login-redirect/login-redirect.component';
-import { LoginTokenComponent } from './login-token/login-token.component';
+import { LoginLoadingPageComponent } from './login-loading-page/login-loading-page.component';
+import { LoginRedirectPageComponent } from './login-redirect-page/login-redirect-page.component';
+import { LoginTokenPageComponent } from './login-token-page/login-token-page.component';
 
 const loginRoutes: Routes = [
   {
@@ -14,11 +17,20 @@ const loginRoutes: Routes = [
       },
       {
         path: 'token',
-        component: LoginTokenComponent
+        component: LoginTokenPageComponent
       },
       {
         path: 'redirect',
-        component: LoginRedirectComponent
+        component: LoginRedirectPageComponent
+      },
+      {
+        path: 'account',
+        component: LoginAccountPageComponent,
+        canActivate: [AuthAppGuard]
+      },
+      {
+        path: 'loading',
+        component: LoginLoadingPageComponent
       },
       {
         path: 'failure',

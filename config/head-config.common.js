@@ -1,5 +1,5 @@
 /**
- * Configuration for head elements added during the creation of index.html.
+ * Configuration for columns elements added during the creation of index.html.
  *
  * All href attributes are added the publicPath (if exists) by default.
  * You can explicitly hint to prefix a publicPath by setting a boolean value to a key that has

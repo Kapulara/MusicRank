@@ -1,11 +1,25 @@
 <div class="side-bar"
      #imageContainer
-     [ngClass]="{ 'side-bar--blur': sideBarService.blur }">
-  <img *ngFor="let image of sideBarService.images"
-       class="image"
-       [attr.id]="'image-'+image.index"
-       [attr.alt]="'Dynamic Sidebar Image '+image.index"
-       [attr.src]="image.source"
-       [style.z-index]="image['z-index']"
-       [ngClass]="{'image--visible': image.visible }">
+     [ngClass]="{ 'side-bar--blur': sideBarService.blur, 'side-bar--transition': appState.transition }">
+  <div class="side-bar__template" *ngIf="sideBarService.templateRef !== null">
+    <ng-container *ngTemplateOutlet="sideBarService.templateRef; context:sideBarService.templateContext">
+    </ng-container>
+  </div>
+  <div class="side-bar__open"
+       *ngIf="securityService.doneLoading"
+       (click)="menuService.setVisible(!menuService.isVisible)"
+       [ngClass]="{ 'side-bar__open--center': appState.small }">
+    <i class="mr-icon mr-menu-34"></i>
+  </div>
+  <div class="side-bar__background" [ngClass]="{ 'side-bar__background--show': appState.showBackground}">
+  </div>
+  <div class="side-bar__image">
+    <img *ngFor="let image of sideBarService.images"
+         class="image"
+         [attr.id]="'image-'+image.index"
+         [attr.alt]="'Dynamic Sidebar Image '+image.index"
+         [attr.src]="image.source"
+         [style.z-index]="image['z-index']"
+         [ngClass]="{'image--visible': image.visible, 'image--small': image.small }">
+  </div>
 </div>

@@ -1,0 +1,43 @@
+<ng-template
+  let-title="title"
+  let-imageSource="imageSource"
+  let-followers="followers"
+  #spotifyUserSideBar>
+  <div class="side-bar-content">
+    <div class="side-bar-content__type">
+      User
+    </div>
+    <div class="side-bar-content__image">
+      <img [attr.src]="imageSource" alt="{{title}}">
+    </div>
+    <div class="side-bar-content__info">
+      <div class="side-bar-content__title">{{ title }}</div>
+    </div>
+    <div class="side-bar-content__line"></div>
+    <div class="side-bar-content__small">
+      <i class="mr-icon mr-logo-spotify"></i> {{ followers }} followers
+    </div>
+  </div>
+</ng-template>
+
+<mr-top-bar>
+</mr-top-bar>
+<mr-container>
+  <div class="page-loading" *ngIf="spotifyUserPageService.isLoading"></div>
+  <ng-container *ngIf="!spotifyUserPageService.isLoading">
+    <mr-header
+      [extraMargin]="true"
+      [subTitle]="'Search Results'"
+      [title]="'Playlists'">
+    </mr-header>
+    <div class="horizontal-list horizontal-list--wrap">
+      <mr-artist-album
+        *ngFor="let playlist of spotifyUserPageService.playlists"
+        [routerLink]="['/s/playlist/' + playlist.id]"
+        [image]="playlist.image"
+        [title]="playlist.name"
+      >
+      </mr-artist-album>
+    </div>
+  </ng-container>
+</mr-container>

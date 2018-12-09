@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { SharedModule } from '../shared/shared.module';
 import { ApiService } from './security/api.service';
+import { AuthAppGuard } from './security/auth-app.guard';
+import { AuthRedirectGuard } from './security/auth-redirect.guard';
 import { SecurityService } from './security/security.service';
 
 @NgModule({
@@ -19,7 +21,9 @@ import { SecurityService } from './security/security.service';
   ],
   providers: [
     ApiService,
-    SecurityService
+    SecurityService,
+    AuthRedirectGuard,
+    AuthAppGuard
   ]
 })
 export class CoreModule {

@@ -1,6 +1,6 @@
 
 
-@mixin button($foreground-color: $lighter-text-color, $background-color: $white-color, $border-color: $foreground-color) {
+@mixin button($foreground-color: $light-text-color, $background-color: $white-color, $border-color: $foreground-color) {
   min-width: 200px;
   min-height: 45px;
   text-transform: uppercase;
@@ -20,6 +20,7 @@
   cursor: pointer;
 
   margin-right: 20px;
+  padding: 0 10px;
 
   &:last-child {
     margin-right: 0;
@@ -35,7 +36,7 @@
   @include button();
 
   &.button--invert {
-    @include button($white-color, $lighter-text-color, $lighter-text-color)
+    @include button($white-color, $light-text-color, $light-text-color)
   }
 
   &.button--yellow {
@@ -50,4 +51,16 @@
 .button-container {
   display: flex;
   flex-direction: row;
+
+  &--margin-top {
+    margin-top: 75px;
+  }
+
+  &--margin-less {
+    margin-top: 40px;
+  }
+  &--center {
+    justify-content: center;
+    align-items: center;
+  }
 }

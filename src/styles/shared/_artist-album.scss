@@ -1,0 +1,58 @@
+mr-artist-album {
+  outline: none;
+}
+
+.artist-album {
+  margin-right: 18.5px;
+  cursor: pointer;
+  max-width: 138px;
+
+  .artist-album__image {
+    background: #D8D8D8;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,0.15);
+    max-width: 138px;
+    max-height: 138px;
+    min-width: 138px;
+    min-height: 138px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: auto;
+      max-height: 138px;
+      min-height: 138px;
+    }
+  }
+
+  .artist-album__title {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+  }
+
+  .artist-album__under-title {
+    font-size: 10px;
+    color: $lighter-text-color;
+  }
+
+  &--is-artist .artist-album__image {
+    border-top-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+  }
+}
+
+.artist-album-active {
+  .artist-album {
+    .artist-album__title {
+      color: $primary-color;
+    }
+  }
+}

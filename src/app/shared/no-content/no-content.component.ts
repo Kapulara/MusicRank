@@ -1,23 +1,17 @@
 import { Component } from '@angular/core';
+import { SecurityService } from '../../core/security/security.service';
 import { SideBarService } from '../side-bar/side-bar.service';
 import { SideBarStyles } from '../side-bar/side-bar.styles';
 
 @Component({
-  selector: 'no-content',
-  template: `
-    <mr-top-bar></mr-top-bar>
-    <mr-center>
-      <h1>Page not found...</h1>
-      <br/>
-      <div class="button button--yellow"
-           [routerLink]="'/'">
-        Home
-      </div>
-    </mr-center>
-  `
+  selector: 'mr-no-content',
+  templateUrl: './no-content.component.html'
 })
 export class NoContentComponent {
-  constructor(private sideBarService: SideBarService) {
+  constructor(
+    public securityService: SecurityService,
+    private sideBarService: SideBarService
+  ) {
     this.sideBarService.set(SideBarStyles.NotFound);
   }
 }

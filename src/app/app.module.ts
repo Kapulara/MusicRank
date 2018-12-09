@@ -1,5 +1,6 @@
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,14 +16,33 @@ import { AppComponent } from './app.component';
 import { ROUTES } from './app.routes';
 import { AppState } from './app.service';
 import { CoreModule } from './core/core.module';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { HomeModule } from './modules/home/home.module';
 import { LoginModule } from './modules/login/login.module';
+import { SpotifyModule } from './modules/spotify/spotify.module';
+import { MenuModule } from './shared/menu/menu.module';
 import { SharedModule } from './shared/shared.module';
 
 // Application wide providers
 const APP_PROVIDERS = [
   AppState
 ];
+
+@Injectable()
+export class CustomLocationStrategy extends HashLocationStrategy {
+  public path(includeHash?: boolean): string {
+    return '';
+  }
+
+  public pushState(
+    state: any,
+    title: string,
+    url: string,
+    queryParams: string
+  ): void {
+    console.log('push state called');
+  }
+}
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
@@ -46,12 +66,15 @@ const APP_PROVIDERS = [
     }),
 
     // Modules
+    DashboardModule,
     HomeModule,
     LoginModule,
+    SpotifyModule,
 
     // Extra
     CoreModule,
-    SharedModule
+    SharedModule,
+    MenuModule
   ],
   /**
    * Expose our Services and Providers into Angular's dependency injection.

@@ -1,0 +1,17 @@
+<ng-container>
+  <mr-top-bar>
+  </mr-top-bar>
+  <div class="user-loading" *ngIf="!securityService.doneLoading"></div>
+  <mr-center *ngIf="securityService.doneLoading">
+    <h1>Hi {{ name }}!</h1>
+    <mr-login-user [margin]="true">
+    </mr-login-user>
+    <div class="button-container button-container--margin-top">
+      <div class="button button--yellow"
+           [routerLink]="'/login/redirect'"
+           [queryParams]="{ dialog: 'yes' }">SWITCH ACCOUNTS</div>
+      <div class="button button--invert"
+           [routerLink]="'/home'">REDIRECTING IN {{counter}}s</div>
+    </div>
+  </mr-center>
+</ng-container>

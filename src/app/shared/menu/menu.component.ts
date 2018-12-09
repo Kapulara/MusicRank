@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SecurityService } from '../../core/security/security.service';
 import { MenuService } from './menu.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { MenuService } from './menu.service';
 export class MenuComponent {
 
   constructor(
-    public menuService: MenuService
+    public menuService: MenuService,
+    public securityService: SecurityService
   ) {}
 }

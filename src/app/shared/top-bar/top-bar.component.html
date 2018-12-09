@@ -1,21 +1,30 @@
-<div class="top-bar">
+<div class="top-bar-background"></div>
+<div class="top-bar" *ngIf="securityService.user === null">
   <div class="top-bar__left">
     <a class="top-bar__item"
        [routerLinkActive]="'top-bar__item--active'"
        [routerLink]="'/home'">
-      Home
+      <span>Home</span>
     </a>
     <a class="top-bar__item"
        [routerLinkActive]="'top-bar__item--active'"
        [routerLink]="'/about'">
-      About
+      <span>About</span>
     </a>
   </div>
   <div class="top-bar__right">
     <a class="top-bar__item"
+       *ngIf="securityService.user === null"
        [routerLinkActive]="'top-bar__item--active'"
        [routerLink]="'/login/redirect'">
-      Login
+      <span>Login</span>
+    </a>
+    <a class="top-bar__item"
+       *ngIf="securityService.user !== null"
+       [routerLinkActive]="'top-bar__item--active'"
+       [routerLink]="'/login/account'">
+      <span>{{ securityService.user.name }}</span>
     </a>
   </div>
 </div>
+<mr-top-bar-app *ngIf="securityService.user !== null"></mr-top-bar-app>

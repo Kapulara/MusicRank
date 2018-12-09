@@ -1,0 +1,27 @@
+<div class="top-bar">
+  <div class="top-bar__left">
+    <a class="top-bar__item top-bar__item--icon top-bar__item--less-margin" (click)="location.back()">
+      <i class="mr-icon mr-small-left"></i>
+    </a>
+    <a class="top-bar__item top-bar__item--icon" (click)="location.forward()">
+      <i class="mr-icon mr-small-right"></i>
+    </a>
+    <div class="top-bar__search" (window:keypress)="onWindowKeyPress($event)">
+      <i class="mr-icon mr-zoom-2"></i><input type="text" placeholder="Search" [(ngModel)]="spotifySearchPageService.searchString">
+    </div>
+  </div>
+  <div class="top-bar__right">
+    <a class="top-bar__item"
+       *ngIf="securityService.user === null"
+       [routerLinkActive]="'top-bar__item--active'"
+       [routerLink]="'/login/redirect'">
+      Login
+    </a>
+    <a class="top-bar__item"
+       *ngIf="securityService.user !== null"
+       [routerLinkActive]="'top-bar__item--active'"
+       [routerLink]="'/login/account'">
+      <span>{{ securityService.user.name }}</span>
+    </a>
+  </div>
+</div>

@@ -7,7 +7,7 @@ import { SecurityService } from '../../core/security/security.service';
 })
 export class TopBarComponent {
   constructor(
-    private securityService: SecurityService
+    public securityService: SecurityService
   ) {
   }
 }

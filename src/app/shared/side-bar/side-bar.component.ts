@@ -1,5 +1,8 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
+import { AppState } from '../../app.service';
+import { SecurityService } from '../../core/security/security.service';
+import { MenuService } from '../menu/menu.service';
 import { SideBarService } from './side-bar.service';
 
 @Component({
@@ -8,18 +11,19 @@ import { SideBarService } from './side-bar.service';
 })
 export class SideBarComponent implements AfterViewInit {
 
+  public transition: boolean = false;
+
   /**
    * Image Reference
    */
   @ViewChild('imageContainer')
   public imageContainer: ElementRef;
 
-  /**
-   * Side Bar
-   * @param sideBarService
-   */
   constructor(
-    public sideBarService: SideBarService
+    public sideBarService: SideBarService,
+    public securityService: SecurityService,
+    public appState: AppState,
+    public menuService: MenuService
   ) {
   }
 
@@ -27,9 +31,6 @@ export class SideBarComponent implements AfterViewInit {
    * After View Init
    */
   public ngAfterViewInit(): void {
-    // fromEvent(this.imgReference1.nativeElement, 'load')
-    //   .subscribe(() => this.sideBarService.setImageLoaded(this.imgReference1.nativeElement.getAttribute('src'), true));
-    // fromEvent(this.imgReference2.nativeElement, 'load')
-    //   .subscribe(() => this.sideBarService.setImageLoaded(this.imgReference2.nativeElement.getAttribute('src'), true));
+    this.transition = true;
   }
 }

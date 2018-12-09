@@ -5,9 +5,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
+import { LoginAccountPageComponent } from './login-account-page/login-account-page.component';
 import { LoginFailurePageComponent } from './login-failure-page/login-failure-page.component';
-import { LoginRedirectComponent } from './login-redirect/login-redirect.component';
-import { LoginTokenComponent } from './login-token/login-token.component';
+import { LoginLoadingPageComponent } from './login-loading-page/login-loading-page.component';
+import { LoginRedirectPageComponent } from './login-redirect-page/login-redirect-page.component';
+import { LoginTokenPageComponent } from './login-token-page/login-token-page.component';
+import { LoginUserComponent } from './login-user/login-user.component';
 import { LOGIN_ROUTES } from './login.routes';
 
 @NgModule({
@@ -24,8 +27,14 @@ import { LOGIN_ROUTES } from './login.routes';
   ],
   declarations: [
     LoginFailurePageComponent,
-    LoginRedirectComponent,
-    LoginTokenComponent
+    LoginAccountPageComponent,
+    LoginRedirectPageComponent,
+    LoginLoadingPageComponent,
+    LoginTokenPageComponent,
+    LoginUserComponent
+  ],
+  exports: [
+    LoginUserComponent
   ]
 })
 export class LoginModule {

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import { Subject } from 'rxjs';
 import { AppState } from '../../app.service';
@@ -10,6 +10,16 @@ export class SideBarService {
    * Is the sidebar blurred
    */
   public blur: boolean = false;
+
+  /**
+   * Template
+   */
+  public templateRef: ElementRef = null;
+
+  /**
+   * Template Context
+   */
+  public templateContext: any = {};
 
   /**
    * Image Source
@@ -37,14 +47,7 @@ export class SideBarService {
   /**
    * Images
    */
-  public images = [
-    {
-      'index': _.clone(this.index),
-      'z-index': _.clone(this.zIndex),
-      'visible': true,
-      'source': '/assets/img/background/junior-pereira-73904-unsplash.jpg'
-    }
-  ];
+  public images = [];
 
   /**
    * @param appState
@@ -70,7 +73,7 @@ export class SideBarService {
 
   public async setImageSource(
     source: string,
-    waitForLoad = false
+    small = false
   ) {
     this.index++;
     this.zIndex--;
@@ -79,6 +82,7 @@ export class SideBarService {
       'index': _.clone(this.index),
       'z-index': _.clone(this.zIndex),
       'visible': true,
+      'small': small,
       'source': source
     });
 
@@ -95,19 +99,36 @@ export class SideBarService {
     this.appState.small = state;
   }
 
-  public async set(settings: { small?: boolean; blur?: boolean; source?: string; waitLoadSource?: boolean; }) {
+  public async set(settings: {
+    small?: boolean;
+    blur?: boolean;
+    source?: string;
+    template?: ElementRef;
+    templateContext?: any;
+    smallImage?: boolean;
+    showBackground?: boolean;
+    waitLoadSource?: boolean;
+  }) {
     const small = _.get(settings, 'small', false);
     const blur = _.get(settings, 'blur', false);
+    const smallImage = _.get(settings, 'smallImage', false);
+    const template = _.get(settings, 'template', null);
+    const templateContext = _.get(settings, 'templateContext', {});
+    const showBackground = _.get(settings, 'showBackground', false);
     const source = _.get(settings, 'source', '/assets/img/background/junior-pereira-73904-unsplash.jpg');
     const waitLoadSource = _.get(settings, 'waitLoadSource', false);
 
+    this.appState.showBackground = showBackground;
     this.setSmall(small);
     this.setBlur(blur);
 
+    this.templateRef = template;
+    this.templateContext = templateContext;
+
     if ( waitLoadSource ) {
-      await this.setImageSource(source);
+      await this.setImageSource(source, smallImage);
     } else {
-      this.setImageSource(source);
+      this.setImageSource(source, smallImage);
     }
   }
 }

@@ -1,0 +1,76 @@
+<ng-template
+  let-title="title"
+  let-underTitle="underTitle"
+  let-imageSource="imageSource"
+  let-followers="followers"
+  #spotifyArtistSideBar>
+  <div class="side-bar-content">
+    <div class="side-bar-content__type">
+      Artist
+    </div>
+    <div class="side-bar-content__image">
+      <img [attr.src]="imageSource" alt="{{title}}">
+    </div>
+    <div class="side-bar-content__info">
+      <div class="side-bar-content__title">{{ title }}</div>
+      <div class="side-bar-content__under-title">{{ underTitle }}</div>
+    </div>
+    <div class="side-bar-content__line"></div>
+    <div class="side-bar-content__small">
+      <i class="mr-icon mr-logo-spotify"></i> {{ followers }} followers
+    </div>
+  </div>
+</ng-template>
+
+<mr-top-bar>
+</mr-top-bar>
+<mr-container>
+  <div class="page-loading" *ngIf="spotifyArtistPageService.isLoading"></div>
+  <ng-container *ngIf="!spotifyArtistPageService.isLoading">
+    <ng-container *ngIf="spotifyArtistPageService.popularSongs.length">
+      <mr-header
+        [subTitle]="'Popular'"
+        [title]="'Songs'">
+      </mr-header>
+      <mr-table
+        [columns]="columns"
+        [rows]="spotifyArtistPageService.popularSongs"
+        (onRowClick)="onRowClick($event)">
+      </mr-table>
+    </ng-container>
+    <ng-container *ngIf="spotifyArtistPageService.moreBy.length > 0">
+      <mr-header
+        [extraMargin]="true"
+        [subTitle]="'Recent'"
+        [title]="'Albums'">
+      </mr-header>
+      <div class="horizontal-list">
+        <mr-artist-album
+          *ngFor="let artist of spotifyArtistPageService.moreBy"
+          [routerLink]="['/s/album/' + artist.id]"
+          [image]="artist.image"
+          [underTitle]="artist.artist"
+          [title]="artist.name"
+        >
+        </mr-artist-album>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="spotifyArtistPageService.relatedArtists.length > 0">
+      <mr-header
+        [extraMargin]="true"
+        [subTitle]="'Related'"
+        [title]="'Fans also like'">
+      </mr-header>
+      <div class="horizontal-list">
+        <mr-artist-album
+          *ngFor="let artist of spotifyArtistPageService.relatedArtists"
+          [routerLink]="['/s/artist/' + artist.id]"
+          [artist]="true"
+          [image]="artist.image"
+          [title]="artist.name"
+        >
+        </mr-artist-album>
+      </div>
+    </ng-container>
+  </ng-container>
+</mr-container>

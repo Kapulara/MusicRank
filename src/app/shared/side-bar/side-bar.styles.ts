@@ -14,17 +14,22 @@ export class SideBarStyles {
   };
 
   public static Login: SideBarConfig = {
-    source: '/assets/img/background/john-salvino-417565-unsplash.jpg',
+    source: '/assets/img/background/junior-pereira-73904-unsplash.jpg',
     waitLoadSource: true,
-    blur: false,
-    small: false
-  };
-  public static LoginRedirect = {
-    ...SideBarStyles.Login,
+    blur: true,
     small: true
   };
-  public static LoginFailure = SideBarStyles.Login;
-  public static LoginToken = SideBarStyles.Login;
+  public static LoginRedirectPage = SideBarStyles.Login;
+  public static LoginFailurePage = SideBarStyles.Login;
+  public static LoginTokenPage = SideBarStyles.Login;
+  public static LoginAccountPage = SideBarStyles.Login;
+  public static LoginLoadingPage = SideBarStyles.Login;
+
+  public static DashboardPage: SideBarConfig = {
+    source: '/assets/img/background/junior-pereira-73904-unsplash.jpg',
+    blur: true,
+    small: true
+  };
 
   public static NotFound: SideBarConfig = {
     source: '/assets/img/background/nate-bell-456723-unsplash.jpg',
