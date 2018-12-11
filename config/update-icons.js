@@ -13,7 +13,7 @@ if (fs.existsSync(path.join(envPath, 'MusicRank'))) {
 
     if (fs.existsSync(path.join(envPath, 'MusicRank/scss/icons.scss'))) {
       const srcIconsFile = path.join(envPath, 'MusicRank/scss/icons.scss');
-      const targetIconsFile = path.join(__dirname, '../src/styles/icons/_icon-names.scss');
+      const targetIconsFile = path.join(__dirname, '../src/styles/icon/_icon-names.scss');
 
       fs.copySync(srcIconsFile, targetIconsFile);
     } else {

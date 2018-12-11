@@ -31,6 +31,11 @@ $mr-zoom-2: unicode(ea18);
 $mr-zoom-split-2: unicode(ea19);
 $mr-users-mm-1: unicode(ea1a);
 $mr-users-mm-2: unicode(ea1b);
+$mr-small-triangle-right-1: unicode(ea1c);
+$mr-triangle-right-2: unicode(ea1d);
+$mr-triangle-right-1: unicode(ea1e);
+$mr-small-triangle-right-2: unicode(ea1f);
+$mr-check-single: unicode(ea20);
 
 .mr-menu-34::before {
   content: $mr-menu-34;
@@ -134,5 +139,25 @@ $mr-users-mm-2: unicode(ea1b);
 
 .mr-users-mm-2::before {
   content: $mr-users-mm-2;
+}
+
+.mr-small-triangle-right-1::before {
+  content: $mr-small-triangle-right-1;
+}
+
+.mr-triangle-right-2::before {
+  content: $mr-triangle-right-2;
+}
+
+.mr-triangle-right-1::before {
+  content: $mr-triangle-right-1;
+}
+
+.mr-small-triangle-right-2::before {
+  content: $mr-small-triangle-right-2;
+}
+
+.mr-check-single::before {
+  content: $mr-check-single;
 }
 
