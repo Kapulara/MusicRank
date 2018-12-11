@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
+import * as _ from 'lodash';
 import { Subject } from 'rxjs';
 import { AppState } from '../../app.service';
 
@@ -9,6 +10,16 @@ export class SideBarService {
    * Is the sidebar blurred
    */
   public blur: boolean = false;
+
+  /**
+   * Template
+   */
+  public templateRef: ElementRef = null;
+
+  /**
+   * Template Context
+   */
+  public templateContext: any = {};
 
   /**
    * Image Source
@@ -29,6 +40,14 @@ export class SideBarService {
    * Image Loaded
    */
   public imgLoaded$: Subject<string> = new Subject();
+
+  public index = 1;
+  public zIndex = 9999;
+
+  /**
+   * Images
+   */
+  public images = [];
 
   /**
    * @param appState
@@ -54,29 +73,22 @@ export class SideBarService {
 
   public async setImageSource(
     source: string,
-    waitForLoad = false
+    small = false
   ) {
-    this.imgSrc = source;
-    this.imgSrc$.next(this.imgSrc);
+    this.index++;
+    this.zIndex--;
 
-    if ( waitForLoad ) {
-      const result = await new Promise((
-        resolve
-      ) => {
-        this.imgLoaded$.subscribe((loadedSource) => {
-          if ( loadedSource === source ) {
-            resolve(true);
-            return;
-          }
+    this.images.push({
+      'index': _.clone(this.index),
+      'z-index': _.clone(this.zIndex),
+      'visible': true,
+      'small': small,
+      'source': source
+    });
 
-          resolve(false);
-        });
-      });
-
-      return result;
-    }
-
-    return;
+    this.images
+      .filter((image) => image.index !== this.index)
+      .map((image) => image.visible = false);
   }
 
   public setBlur(state: boolean) {
@@ -85,5 +97,38 @@ export class SideBarService {
 
   public setSmall(state: boolean) {
     this.appState.small = state;
+  }
+
+  public async set(settings: {
+    small?: boolean;
+    blur?: boolean;
+    source?: string;
+    template?: ElementRef;
+    templateContext?: any;
+    smallImage?: boolean;
+    showBackground?: boolean;
+    waitLoadSource?: boolean;
+  }) {
+    const small = _.get(settings, 'small', false);
+    const blur = _.get(settings, 'blur', false);
+    const smallImage = _.get(settings, 'smallImage', false);
+    const template = _.get(settings, 'template', null);
+    const templateContext = _.get(settings, 'templateContext', {});
+    const showBackground = _.get(settings, 'showBackground', false);
+    const source = _.get(settings, 'source', '/assets/img/background/junior-pereira-73904-unsplash.jpg');
+    const waitLoadSource = _.get(settings, 'waitLoadSource', false);
+
+    this.appState.showBackground = showBackground;
+    this.setSmall(small);
+    this.setBlur(blur);
+
+    this.templateRef = template;
+    this.templateContext = templateContext;
+
+    if ( waitLoadSource ) {
+      await this.setImageSource(source, smallImage);
+    } else {
+      this.setImageSource(source, smallImage);
+    }
   }
 }

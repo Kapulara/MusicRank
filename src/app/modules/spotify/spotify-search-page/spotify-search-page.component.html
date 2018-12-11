@@ -1,0 +1,74 @@
+<mr-top-bar>
+</mr-top-bar>
+<mr-container>
+  <div class="page-loading" *ngIf="spotifySearchPageService.isLoading"></div>
+  <ng-container *ngIf="!spotifySearchPageService.isLoading">
+    <ng-container *ngIf="spotifySearchPageService.rows.length > 0">
+      <mr-header
+        [subTitle]="'Search Results'"
+        [title]="'Songs'">
+      </mr-header>
+      <mr-table
+        [columns]="columns"
+        [cap]="7"
+        [rows]="spotifySearchPageService.rows"
+        (onRowClick)="onRowClick($event)">
+      </mr-table>
+    </ng-container>
+    <ng-container *ngIf="spotifySearchPageService.playlists.length > 0">
+      <mr-header
+        [extraMargin]="true"
+        [subTitle]="'Search Results'"
+        [title]="'Playlists'">
+      </mr-header>
+      <div class="horizontal-list horizontal-list--wrap">
+        <mr-artist-album
+          *ngFor="let playlist of spotifySearchPageService.playlists"
+          [routerLink]="['/s/playlist/' + playlist.id]"
+          [image]="playlist.image"
+          [title]="playlist.name"
+        >
+        </mr-artist-album>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="spotifySearchPageService.albums.length > 0">
+      <mr-header
+        [extraMargin]="true"
+        [subTitle]="'Search Results'"
+        [title]="'Albums'">
+      </mr-header>
+      <div class="horizontal-list horizontal-list--wrap">
+        <mr-artist-album
+          *ngFor="let album of spotifySearchPageService.albums"
+          [routerLink]="['/s/album/' + album.id]"
+          [routerLinkActive]="['artist-album-active']"
+          [image]="album.image"
+          [underTitle]="album.artist"
+          [title]="album.name"
+        >
+        </mr-artist-album>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="spotifySearchPageService.artists.length > 0">
+      <mr-header
+        [extraMargin]="true"
+        [subTitle]="'Search Results'"
+        [title]="'Artists'">
+      </mr-header>
+      <div class="horizontal-list horizontal-list--wrap">
+        <mr-artist-album
+          *ngFor="let artist of spotifySearchPageService.artists"
+          [routerLink]="['/s/artist/' + artist.id]"
+          [artist]="true"
+          [image]="artist.image"
+          [title]="artist.name"
+        >
+        </mr-artist-album>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="spotifySearchPageService.rows.length === 0 && spotifySearchPageService.albums.length === 0 && spotifySearchPageService.playlists.length === 0 && spotifySearchPageService.artists.length === 0 ">
+      <h1>Unfortunately we did not find anything...</h1>
+      <small>I hope ur not mad</small>
+    </ng-container>
+  </ng-container>
+</mr-container>

@@ -1,0 +1,44 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th *ngFor="let column of columns">
+      <i
+        *ngIf="column.icon !== undefined && column.icon !== null"
+        [ngClass]="'mr-icon ' + column.icon">
+      </i>
+      {{ column?.name }}
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let row of rows; let i = index">
+    <ng-container *ngFor="let column of columns">
+      <td *ngIf="cap === null ? true : showCap || i < cap"
+          [ngClass]="{ 'fill': column?.fill, 'hover': column?.hover }"
+          (click)="triggerClickEvent(row, column)">
+        <ng-container [ngSwitch]="column.type">
+          <img *ngSwitchCase="'image'" [attr.src]="row[column.key]" class="table__image">
+          <span *ngSwitchCase="'album'">
+            {{ row[column.key].name }}
+          </span>
+          <div class="popularity"
+               *ngSwitchCase="'popularity'">
+            <div class="popularity__item"
+                 *ngFor="let popularity of row[column.key]"
+                 [ngClass]="{ 'popularity__item--active': popularity.active }"></div>
+          </div>
+          <span *ngSwitchDefault>
+            {{ row[column.key] }}
+          </span>
+        </ng-container>
+      </td>
+    </ng-container>
+  </tr>
+  </tbody>
+</table>
+<div class="button-container button-container--center button-container--margin-less"
+     *ngIf="cap !== null && !showCap && (rows.length - cap) > 0">
+  <div class="button" (click)="showCap = true">
+    SHOW {{ rows.length - cap }} MORE
+  </div>
+</div>

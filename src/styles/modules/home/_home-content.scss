@@ -12,7 +12,7 @@
   .home-content__welcome {
     font-family: 'Poppins', sans-serif;
     font-size: 24px;
-    color: $lightest-text-color;
+    color: $lighter-text-color;
     letter-spacing: 0;
     transition: color .25s ease-out, margin-top .25s ease-out;
   }
@@ -35,9 +35,6 @@
   }
 
   .home-content__buttons {
-    display: flex;
-    flex-direction: row;
-
     margin-top: 40px;
   }
 }

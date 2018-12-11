@@ -6,26 +6,34 @@
   .app-container__left {
     position: relative;
     width: 30%;
+    max-width: 30%;
     height: 100%;
-
-    transition: width .25s ease-out;
   }
 
   .app-container__right {
     position: relative;
     width: 70%;
+    max-width: 70%;
     height: 100%;
-
-    transition: width .25s ease-out;
+    overflow-y: auto;
   }
 
   &.app-container--small {
     .app-container__left {
       width: 10%;
+      max-width: 122px;
     }
 
     .app-container__right {
-      width: 90%;
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  &.app-container--transition {
+    .app-container__left,
+    .app-container__right {
+      transition: width .25s ease-out, max-width .25s ease-out;
     }
   }
 }
@@ -65,4 +73,12 @@ a {
 
 .hidden {
   display: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
 }

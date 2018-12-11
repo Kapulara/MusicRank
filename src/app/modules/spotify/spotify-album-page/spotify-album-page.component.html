@@ -1,0 +1,62 @@
+<ng-template
+  let-title="title"
+  let-underTitle="underTitle"
+  let-artistId="artistId"
+  let-imageSource="imageSource"
+  let-amountSongs="amountSongs"
+  let-releaseYear="releaseYear"
+  #spotifyAlbumSideBar>
+  <div class="side-bar-content">
+    <div class="side-bar-content__type">
+      Album
+    </div>
+    <div class="side-bar-content__image">
+      <img [attr.src]="imageSource" alt="">
+    </div>
+    <div class="side-bar-content__info">
+      <div class="side-bar-content__title">{{ title }}</div>
+      <div class="side-bar-content__under-title side-bar-content__under-title--clickable"
+           [routerLink]="['/s/artist/' + artistId]">{{ underTitle }}
+      </div>
+    </div>
+    <div class="side-bar-content__line"></div>
+    <div class="side-bar-content__small">
+      <i class="mr-icon mr-disk-2"></i> {{ amountSongs }} songs - released in {{ releaseYear }}
+    </div>
+  </div>
+</ng-template>
+
+<mr-top-bar>
+</mr-top-bar>
+<mr-container>
+  <div class="page-loading" *ngIf="spotifyAlbumPageService.isLoading"></div>
+  <ng-container *ngIf="!spotifyAlbumPageService.isLoading">
+    <mr-header
+      [title]="'Songs'"
+      [subTitle]="'Album'">
+    </mr-header>
+    <mr-table
+      [columns]="columns"
+      [rows]="spotifyAlbumPageService.rows">
+    </mr-table>
+    <mr-header
+      [extraMargin]="true"
+      [subTitle]="'More by'"
+      [title]="spotifyAlbumPageService?.templateContext?.underTitle">
+    </mr-header>
+    <div class="horizontal-list">
+      <mr-artist-album
+        *ngFor="let album of spotifyAlbumPageService.moreBy"
+        [routerLink]="['/s/album/' + album.id]"
+        [routerLinkActive]="['artist-album-active']"
+        [image]="album.image"
+        [underTitle]="album.artist"
+        [title]="album.name"
+      >
+      </mr-artist-album>
+    </div>
+    <div class="button-container button-container--margin-less button-container--center">
+      <div class="button" [routerLink]="['/s/artist/' + spotifyAlbumPageService?.templateContext?.artistId]">GO TO ARTIST&nbsp;<i class="mr-icon mr-small-right"></i></div>
+    </div>
+  </ng-container>
+</mr-container>

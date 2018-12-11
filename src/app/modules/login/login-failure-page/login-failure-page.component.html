@@ -1,0 +1,14 @@
+<mr-top-bar></mr-top-bar>
+<mr-center>
+  <h1>Oh, You canceled!</h1>
+  <br>
+  <small>Or something went wrong...</small>
+  <br>
+  <br>
+  <br>
+  <div class="button-container">
+    <div class="button" [routerLink]="'/home'" *ngIf="securityService.user === null">Home</div>
+    <div class="button" [routerLink]="'/dashboard'" *ngIf="securityService.user !== null">Dashboard</div>
+    <div class="button button--yellow button--invert" [routerLink]="'/login/redirect'">Retry</div>
+  </div>
+</mr-center>

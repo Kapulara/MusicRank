@@ -1,5 +1,5 @@
 /**
- * Configuration for head elements added during the creation of index.html.
+ * Configuration for columns elements added during the creation of index.html.
  *
  * All href attributes are added the publicPath (if exists) by default.
  * You can explicitly hint to prefix a publicPath by setting a boolean value to a key that has
@@ -44,7 +44,8 @@ module.exports = {
      * <link> tags for a Web App Manifest
      */
     { rel: 'manifest', href: '/assets/manifest.json' },
-    { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Poppins:300,400,400i,500,700' }
+    { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Poppins:300,400,400i,500,700' },
+    { rel: 'stylesheet', href: '/assets/css/loading.css' }
   ],
   meta: [
     { name: 'msapplication-TileColor', content: '#00bcd4' },

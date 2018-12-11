@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { NoContentComponent } from './core/no-content';
+import { NoContentComponent } from './shared/no-content/no-content.component';
 
 export const ROUTES: Routes = [
   {

@@ -1,0 +1,10 @@
+<div class="login-user" [ngClass]="{ 'login-user--margin': margin }">
+  <div class="login-user__image" *ngIf="securityService?.user?.spotifyInformation?.json?.images.length > 0">
+    <img [attr.src]="securityService?.user?.spotifyInformation?.json?.images[0].url">
+  </div>
+  <div class="login-user__content">
+    <div class="login-user__name">{{ securityService?.user?.name }}</div>
+    <div class="login-user__email">{{ securityService?.user?.email }}</div>
+    <div class="login-user__spotify-id"><i class="mr-icon mr-logo-spotify"></i>{{ securityService?.user?.spotifyId }}</div>
+  </div>
+</div>

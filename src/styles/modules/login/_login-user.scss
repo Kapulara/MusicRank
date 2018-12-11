@@ -1,0 +1,64 @@
+
+.login-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+
+  &--margin {
+    margin-top: 75px;
+  }
+
+  .login-user__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 50%;
+    border: solid 5px $primary-color;
+
+    img {
+      height: auto;
+      width: auto;
+      transform: scale(0.75);
+    }
+  }
+
+  .login-user__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: $primary-color;
+    color: $white-color;
+    padding: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    margin-top: 20px;
+
+    .login-user__name {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .login-user__email {
+      margin-top: 5px;
+      font-size: 18px;
+    }
+    .login-user__spotify-id {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex-direction: row;
+
+      i {
+        margin-right: 5px;
+      }
+
+      margin-top: 20px;
+    }
+  }
+}

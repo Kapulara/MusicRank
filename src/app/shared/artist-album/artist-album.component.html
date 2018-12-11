@@ -1,0 +1,7 @@
+<div class="artist-album" [ngClass]="{ 'artist-album--is-artist': artist }">
+  <div class="artist-album__image">
+    <img [attr.src]="image" alt="">
+  </div>
+  <div class="artist-album__title">{{ title }}</div>
+  <div class="artist-album__under-title" *ngIf="underTitle !== null">{{ underTitle }}</div>
+</div>
