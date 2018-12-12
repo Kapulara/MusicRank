@@ -16,7 +16,7 @@
     <div class="side-bar-content__info">
       <div class="side-bar-content__title">{{ title }}</div>
       <div class="side-bar-content__under-title side-bar-content__under-title--clickable"
-           [routerLink]="['/s/artist/' + ownerId]">{{ underTitle }}
+           [routerLink]="['/s/user/' + ownerId]">{{ underTitle }}
       </div>
     </div>
     <div class="side-bar-content__line"></div>
@@ -33,10 +33,10 @@
   <ng-container *ngIf="!spotifyPlaylistPageService.isLoading">
     <mr-header
       [title]="'Songs'"
-      [subTitle]="'Album'">
+      [subTitle]="'Playlist'">
     </mr-header>
     <mr-table
-      [columns]="columns"
+      [columns]="spotifyPlaylistPageService.columns"
       [rows]="spotifyPlaylistPageService.rows"
       (onRowClick)="onRowClick($event)">
     </mr-table>

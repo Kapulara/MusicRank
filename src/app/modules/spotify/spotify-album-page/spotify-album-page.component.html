@@ -31,14 +31,23 @@
 <mr-container>
   <div class="page-loading" *ngIf="spotifyAlbumPageService.isLoading"></div>
   <ng-container *ngIf="!spotifyAlbumPageService.isLoading">
-    <mr-header
-      [title]="'Songs'"
-      [subTitle]="'Album'">
-    </mr-header>
-    <mr-table
-      [columns]="columns"
-      [rows]="spotifyAlbumPageService.rows">
-    </mr-table>
+    <ng-container *ngFor="let disc of spotifyAlbumPageService.discs">
+      <mr-header
+        *ngIf="spotifyAlbumPageService.discs.length === 1"
+        [title]="'Songs'"
+        [subTitle]="'Album'">
+      </mr-header>
+      <mr-header
+        *ngIf="spotifyAlbumPageService.discs.length > 1"
+        [title]="'Songs'"
+        [subTitle]="'Disc ' + disc.key">
+      </mr-header>
+      <mr-table
+        [columns]="columns"
+        [rows]="disc.tracks"
+        (onRowClick)="onRowClick($event)">
+      </mr-table>
+    </ng-container>
     <mr-header
       [extraMargin]="true"
       [subTitle]="'More by'"

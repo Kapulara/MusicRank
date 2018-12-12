@@ -20,7 +20,6 @@ export class SpotifySearchPageService {
   public artists: any[] = [];
   public albums: any[] = [];
   public playlists: any[] = [];
-  public loadedString: string = '';
   public searchString: string = '';
 
   constructor(
@@ -34,11 +33,6 @@ export class SpotifySearchPageService {
   public async load(
     query: any
   ) {
-    if ( this.loadedString === query ) {
-      this.setSideBar();
-      return;
-    }
-    this.loadedString = query;
     this.searchString = query;
 
     this.isLoading = true;
@@ -58,6 +52,8 @@ export class SpotifySearchPageService {
     ) => ({
       index: index + 1,
       name: item.name,
+      trackId: item.id,
+      uri: item.uri,
       album: {
         id: item.album.id,
         name: item.album.name
@@ -69,18 +65,18 @@ export class SpotifySearchPageService {
     this.albums = this.search.albums.items.map(({ id: albumId, name, images, artists }) => ({
       id: albumId,
       name,
-      image: !_.isNil(images[ 0 ]) ? images[ 0 ].url : '',
+      image: !_.isNil(images[ 0 ]) ? images[ 0 ].url : 'https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=60',
       artist: artists[ 0 ].name
     }));
     this.artists = this.search.artists.items.map(({ id: artistId, name, images }) => ({
       id: artistId,
       name,
-      image: !_.isNil(images[ 0 ]) ? images[ 0 ].url : ''
+      image: !_.isNil(images[ 0 ]) ? images[ 0 ].url : 'https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=60'
     }));
     this.playlists = this.search.playlists.items.map(({ id: id, name, images }) => ({
       id,
       name,
-      image: !_.isNil(images[ 0 ]) ? images[ 0 ].url : ''
+      image: !_.isNil(images[ 0 ]) ? images[ 0 ].url : 'https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=60'
     }));
     //
     this.isLoading = false;

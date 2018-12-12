@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { SideBarService } from '../../../shared/side-bar/side-bar.service';
 import { SideBarStyles } from '../../../shared/side-bar/side-bar.styles';
 
@@ -8,8 +9,10 @@ import { SideBarStyles } from '../../../shared/side-bar/side-bar.styles';
 })
 export class DashboardPageComponent {
   constructor(
-    private sideBarService: SideBarService
+    private sideBarService: SideBarService,
+    private router: Router
   ) {
     this.sideBarService.set(SideBarStyles.DashboardPage);
+    this.router.navigateByUrl('/community');
   }
 }

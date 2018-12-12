@@ -15,9 +15,22 @@
     <ng-container *ngFor="let column of columns">
       <td *ngIf="cap === null ? true : showCap || i < cap"
           [ngClass]="{ 'fill': column?.fill, 'hover': column?.hover }"
-          (click)="triggerClickEvent(row, column)">
+          (click)="triggerClickEvent(row, column)"
+          (contextmenu)="triggerContextEvent(row, column, $event)">
         <ng-container [ngSwitch]="column.type">
-          <img *ngSwitchCase="'image'" [attr.src]="row[column.key]" class="table__image">
+          <ng-container *ngSwitchCase="'image'">
+            <div *ngIf="row['trackId'] !== null"
+                 class="table__image"
+                 [ngClass]="{ 'table__image--active': spotifyService?.activeSong?.item?.id === row['trackId'], 'table__image--now-playing': spotifyService?.activeSong?.item?.id === row['trackId'] && spotifyService?.activeSong?.is_playing }">
+              <img [attr.src]="row[column.key]"
+                   class="table__image">
+            </div>
+            <div *ngIf="row['trackId'] === null"
+                 class="table__image">
+              <img [attr.src]="row[column.key]"
+                   class="table__image">
+            </div>
+          </ng-container>
           <span *ngSwitchCase="'album'">
             {{ row[column.key].name }}
           </span>
@@ -26,6 +39,10 @@
             <div class="popularity__item"
                  *ngFor="let popularity of row[column.key]"
                  [ngClass]="{ 'popularity__item--active': popularity.active }"></div>
+          </div>
+          <div class="remove"
+               *ngSwitchCase="'remove'">
+            <i class="mr-icon mr-e-remove"></i>
           </div>
           <span *ngSwitchDefault>
             {{ row[column.key] }}
@@ -36,6 +53,13 @@
   </tr>
   </tbody>
 </table>
+<div class="button-container button-container--center button-container--margin-less"
+     *ngIf="rows.length === 0">
+  <div class="button" [routerLink]="['/s/Flume']">
+    EMPTY PLAYLIST - SEARCH&nbsp;<i class="mr-icon mr-small-right"></i>
+  </div>
+</div>
+
 <div class="button-container button-container--center button-container--margin-less"
      *ngIf="cap !== null && !showCap && (rows.length - cap) > 0">
   <div class="button" (click)="showCap = true">

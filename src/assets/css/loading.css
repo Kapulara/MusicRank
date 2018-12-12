@@ -38,6 +38,16 @@
   animation: rotationAndTransform 1s infinite ease;
 }
 
+.page-loading.small {
+  height: 30px;
+  width: 30px;
+  border-width: 3px;
+}
+
+.page-loading.right {
+  right: 50%;
+}
+
 .page-loading-text {
   position: absolute;
   left: 50%;

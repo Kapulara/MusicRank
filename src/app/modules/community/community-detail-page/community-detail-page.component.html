@@ -1,0 +1,126 @@
+<ng-template
+  let-title="title"
+  let-underTitle="underTitle"
+  let-ownerId="ownerId"
+  let-playlistUri="playlistUri"
+  let-imageSource="imageSource"
+  let-amountSongs="amountSongs"
+  let-releaseYear="releaseYear"
+  #communitySideBar>
+  <div class="side-bar-content">
+    <div class="side-bar-content__type">
+      Community
+    </div>
+    <div class="side-bar-content__image">
+      <img [attr.src]="imageSource" alt="">
+    </div>
+    <div class="side-bar-content__info">
+      <div class="side-bar-content__title">{{ title }}</div>
+      <div class="side-bar-content__under-title side-bar-content__under-title--clickable"
+           [routerLink]="['/s/user/' + ownerId]">{{ underTitle }}
+      </div>
+    </div>
+    <div class="side-bar-content__line"></div>
+    <div class="side-bar-content__small">
+      <i class="mr-icon mr-disk-2"></i> {{ amountSongs }} songs - updated in {{ releaseYear }}
+    </div>
+  </div>
+</ng-template>
+
+<div class="modal-container"
+     *ngIf="updateModalVisible">
+  <div class="modal-container-background"
+       (click)="updateModalVisible = false"></div>
+  <div class="modal">
+    <div class="modal__header">Update Community</div>
+    <div class="modal__content">
+      <div class="input-field">
+        <label for="updateSong">Name</label>
+        <input type="text" name="updateSong" id="updateSong" [(ngModel)]="communityDetailPageService.community.name">
+      </div>
+      <div class="button-container button-container--center button-container--margin-less button-container--wrap">
+        <div class="button" (click)="onDelete(); $event.stopPropagation()">DELETE</div>
+        <div class="button button--yellow button--invert" (click)="onUpdate(); $event.stopPropagation()">UPDATE</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mr-top-bar></mr-top-bar>
+<mr-container>
+  <div class="page-loading" *ngIf="communityDetailPageService.isLoading || spotifyPlaylistPageService.isLoading"></div>
+  <ng-container *ngIf="!spotifyPlaylistPageService.isLoading && !communityDetailPageService.isLoading">
+    <mr-tabs
+      [activeTab]="activeTab"
+      [tabs]="communityDetailPageService.tabs"
+      (onTabChange)="onTabChange($event)">
+    </mr-tabs>
+    <ng-container [ngSwitch]="activeTab?.key">
+      <ng-container *ngSwitchDefault>
+        <mr-header
+          [title]="'Community Playlist'"
+          [subTitle]="'Songs'">
+        </mr-header>
+        <mr-table
+          [columns]="spotifyPlaylistPageService.communityColumns"
+          [rows]="spotifyPlaylistPageService.rows"
+          (onRowClick)="onRowClick($event)">
+        </mr-table>
+        <div class="button-container button-container--center button-container--margin-less">
+          <div class="button" (click)="openInSpotify()">
+            OPEN IN SPOTIFY APP
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'song-proposals'">
+        <mr-header
+          [title]="'Song Proposals'"
+          [subTitle]="'Community'">
+        </mr-header>
+        <div class="song-proposal-container">
+          <mr-community-song-proposal
+            *ngFor="let proposal of communityDetailPageService.proposals"
+            [proposal]="proposal"
+            (onVoteUp)="onVoteUp(proposal)"
+            (onVoteDown)="onVoteDown(proposal)"
+            (onAccept)="onAccept(proposal)"
+            (onRestore)="onRestore(proposal)"
+            (onDeny)="onDecline(proposal)">
+          </mr-community-song-proposal>
+          <h3 *ngIf="communityDetailPageService.proposals.length === 0">No proposals found</h3>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'denied-proposals'">
+        <mr-header
+          [title]="'Denied Proposals'"
+          [subTitle]="'Community'">
+        </mr-header>
+        <div class="song-proposal-container">
+          <mr-community-song-proposal
+            *ngFor="let proposal of communityDetailPageService.deniedProposals"
+            [proposal]="proposal"
+            [denied]="true"
+            (onVoteUp)="onVoteUp(proposal)"
+            (onVoteDown)="onVoteDown(proposal)"
+            (onAccept)="onAccept(proposal)"
+            (onRestore)="onRestore(proposal)"
+            (onDeny)="onDecline(proposal)">
+          </mr-community-song-proposal>
+          <h3 *ngIf="communityDetailPageService.deniedProposals.length === 0">No denied proposals found</h3>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'users'">
+        <mr-header
+          [title]="'Users'"
+          [subTitle]="'Community'">
+        </mr-header>
+      </ng-container>
+      <ng-container *ngSwitchCase="'settings'">
+        <mr-header
+          [title]="'Settings'"
+          [subTitle]="'Community'">
+        </mr-header>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</mr-container>

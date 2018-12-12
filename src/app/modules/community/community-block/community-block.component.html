@@ -1,0 +1,15 @@
+<div class="community-block" [ngClass]="{ 'community-block--is-admin': isAdmin }">
+  <div class="community-block__button"
+       *ngIf="isAdmin">
+  </div>
+  <div class="community-block__image" *ngIf="image !== undefined && image !== null">
+    <img [attr.src]="image.url" alt="">
+  </div>
+  <div class="community-block__image" *ngIf="image === undefined || image === null">
+    <img [attr.src]="'https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=60'" alt="">
+  </div>
+  <div class="community-block__title">{{ title }}</div>
+  <div class="community-block__under-title" *ngIf="underTitle !== null">{{ underTitle }}</div>
+  <div class="community-block__under-title community-block__under-title--yellow" *ngIf="isAdmin"><i>administrator</i></div>
+  <div class="community-block__under-title" *ngIf="!isAdmin"><i>member</i></div>
+</div>

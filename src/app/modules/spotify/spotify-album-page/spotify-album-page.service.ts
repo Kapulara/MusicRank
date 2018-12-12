@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, Injectable } from '@angular/core';
+import * as _ from 'lodash';
 import { Subject } from 'rxjs';
 import { ApiService } from '../../../core/security/api.service';
 import { SecurityService } from '../../../core/security/security.service';
 import { SideBarService } from '../../../shared/side-bar/side-bar.service';
+import { TableColumn } from '../../../shared/table/table.component';
+import { SpotifyService } from '../spotify.service';
 import moment = require('moment');
 
 @Injectable()
@@ -13,7 +16,7 @@ export class SpotifyAlbumPageService {
   public isLoading$: Subject<boolean> = new Subject();
 
   public album: any = null;
-  public rows: any[] = [];
+  public discs: any[] = [];
   public moreBy: any[] = [];
   public templateContext: {
     imageSource: any;
@@ -28,7 +31,8 @@ export class SpotifyAlbumPageService {
   constructor(
     private securityService: SecurityService,
     private httpClient: HttpClient,
-    private sideBarService: SideBarService
+    private sideBarService: SideBarService,
+    private spotifyService: SpotifyService
   ) {
   }
 
@@ -36,11 +40,6 @@ export class SpotifyAlbumPageService {
     id: any,
     sideBar: ElementRef
   ) {
-    if ( this.id === id ) {
-      this.setSideBar(sideBar);
-      return;
-    }
-    this.id = id;
     this.isLoading = true;
     this.isLoading$.next(this.isLoading);
 
@@ -52,15 +51,34 @@ export class SpotifyAlbumPageService {
     this.album = album;
     this.setSideBar(sideBar);
 
-    this.rows = this.album.tracks.items.map((
+    const discObj = {};
+    this.album.tracks.items.map((
       item,
       index
     ) => ({
-      index: index + 1,
+      id: item.id,
+      trackId: item.id,
+      index: item.track_number,
+      disc: item.disc_number,
       name: item.name,
+      uri: item.uri,
       image: this.album.images[ 0 ].url,
       time: this.millisToMinutesAndSeconds(item.duration_ms)
-    }));
+    }))
+      .map((track) => {
+        if ( _.isNil(discObj[ track.disc ]) ) {
+          discObj[ track.disc ] = [];
+        }
+
+        discObj[ track.disc ].push(track);
+      });
+
+    this.discs = Object.keys(discObj)
+      .sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
+      .map((key) => ({
+        key,
+        tracks: discObj[key]
+      }));
 
     const { data: albums } = await this.httpClient.post(
       `${ApiService.host}/v1/spotify/api/getArtistAlbums`,
@@ -68,12 +86,19 @@ export class SpotifyAlbumPageService {
       this.securityService.generateRequestOptions()
     ).toPromise() as any;
 
-    this.moreBy = albums.items.map(({ id: albumId, name, images, artists }) => ({
+    this.moreBy = albums.items.map(({ id: albumId, album_group, release_date, name, images, artists }) => ({
       id: albumId,
       name,
+      group: album_group,
+      date: moment(release_date),
       image: images[ 0 ].url,
       artist: artists[ 0 ].name
-    }));
+    }))
+      .filter((albumItem) => albumItem.group !== 'appears_on')
+      .sort((
+        a,
+        b
+      ) => b.date.isBefore(a.date) ? -1 : 1);
 
     this.isLoading = false;
   }

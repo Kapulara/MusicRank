@@ -1,0 +1,26 @@
+<div class="song-dropdown"
+     (click)="spotifySongDropdownService.hide()"
+     [ngClass]="{ 'song-dropdown--visible': spotifySongDropdownService.visible }"
+     [style.top]="spotifySongDropdownService.clientY + 'px'"
+     [style.left]="spotifySongDropdownService.clientX + 'px'">
+  <div class="song-dropdown__header">
+    Propose to community...
+  </div>
+  <div class="song-dropdown__item"
+       *ngFor="let community of communityPageService.communities"
+       [ngClass]="{ 'song-dropdown__item--disabled': community?.isLoading || isDisabled(community) }"
+       (click)="onDropdownItemClick(community); $event.stopPropagation()">
+    <div class="page-loading small right"  *ngIf="community?.isLoading"></div>
+    <div class="song-dropdown__item-image">
+      <img *ngIf="community.playlist.images.length > 0" [attr.src]="community.playlist.images[0].url" alt="">
+      <img *ngIf="community.playlist.images.length === 0" [attr.src]="'https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=60'" alt="">
+    </div>
+    <div class="song-dropdown__info">
+      <div class="song-dropdown__item-name">
+        {{ community.name }}
+      </div>
+      <div class="song-dropdown__item-admin song-dropdown__item-admin--yellow" *ngIf="community.isAdmin"><i>administrator</i></div>
+      <div class="song-dropdown__item-admin" *ngIf="!community.isAdmin"><i>member</i></div>
+    </div>
+  </div>
+</div>

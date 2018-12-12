@@ -1,0 +1,45 @@
+<div class="modal-container"
+     *ngIf="createModalVisible">
+  <div class="modal-container-background"
+       (click)="createModalVisible = false"></div>
+  <div class="modal">
+    <div class="modal__header">New Community</div>
+    <div class="modal__content">
+      <div class="input-field">
+        <label for="createName">Name</label>
+        <input type="text" name="createName" id="createName" [(ngModel)]="createName">
+      </div>
+      <div class="button-container button-container--center button-container--margin-less">
+        <div class="button button--yellow button--invert" (click)="onCreate(); $event.stopPropagation()">CREATE</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mr-top-bar></mr-top-bar>
+<mr-container>
+  <div class="page-loading" *ngIf="communityPageService.isLoading"></div>
+  <ng-container *ngIf="!communityPageService.isLoading">
+    <mr-header
+      [extraMargin]="true"
+      [subTitle]="'All of my'"
+      [title]="'Communities'">
+    </mr-header>
+    <div class="horizontal-list horizontal-list--wrap">
+      <mr-community-block
+        *ngFor="let community of communityPageService.communities"
+        [routerLink]="'/community/' + community.id"
+        [isAdmin]="community.isAdmin"
+        [title]="community.name"
+        [underTitle]="community.participants.length + ' member(s)'"
+        [image]="community.playlist.images[0]">
+      </mr-community-block>
+      <div class="community-block-add">
+        <div class="community-block-add__icon" (click)="createModalVisible = true">
+          +
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+</mr-container>

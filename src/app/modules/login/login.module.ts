@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
+import { TopBarModule } from '../../shared/top-bar/top-bar.module';
 import { LoginAccountPageComponent } from './login-account-page/login-account-page.component';
 import { LoginFailurePageComponent } from './login-failure-page/login-failure-page.component';
 import { LoginLoadingPageComponent } from './login-loading-page/login-loading-page.component';
@@ -22,7 +23,7 @@ import { LOGIN_ROUTES } from './login.routes';
     HttpClientModule,
 
     SharedModule,
-
+    TopBarModule,
     LOGIN_ROUTES
   ],
   declarations: [

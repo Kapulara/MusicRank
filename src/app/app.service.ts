@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class AppState {
@@ -16,4 +17,6 @@ export class AppState {
    * Show the background
    */
   public showBackground: boolean = false;
+  public scrollObservable$: Observable<any> = null;
+  public initScrollObservable$: Subject<Observable<any>> = new Subject<Observable<any>>();
 }

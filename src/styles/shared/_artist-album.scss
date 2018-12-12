@@ -36,6 +36,7 @@ mr-artist-album {
     overflow: hidden;
     -ms-text-overflow: ellipsis;
     text-overflow: ellipsis;
+    max-width: 100%;
   }
 
   .artist-album__under-title {

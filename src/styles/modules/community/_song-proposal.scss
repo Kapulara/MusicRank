@@ -1,0 +1,241 @@
+
+.song-proposal-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  justify-content: space-between;
+}
+
+.song-proposal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+  min-width: 275px;
+  max-width: 275px;
+  padding: 20px 25px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25);
+
+  @media #{$sm-up} {
+    min-width: 515px;
+    max-width: 515px;
+    flex-direction: row;
+  }
+
+  .song-proposal__vote {
+    position: absolute;
+    left: 0;
+    top: 50%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    .song-proposal__vote-up,
+    .song-proposal__vote-down {
+      min-width: 25px;
+      max-width: 25px;
+      min-height: 25px;
+      max-height: 25px;
+      font-size: 20px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+
+      cursor: pointer;
+
+      border-radius: 50%;
+    }
+
+    .song-proposal__vote-up {
+      margin-bottom: 5px;
+
+      border: solid 2px #2ecc71;
+      background: #2ecc71;
+      box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
+
+      &:hover {
+        background: #fff;
+        color: #2ecc71
+      }
+    }
+
+    .song-proposal__vote-down {
+      margin-top: 5px;
+
+      border: solid 2px #e74c3c;
+      background: #e74c3c;
+      box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
+
+      &:hover {
+        background: #fff;
+        color: #e74c3c
+      }
+    }
+
+    .song-proposal__vote-count {
+      min-width: 30px;
+      min-height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: white;
+      box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+    }
+  }
+
+  .song-proposal__image {
+    position: relative;
+    max-width: 100px;
+    min-width: 100px;
+    max-height: 100px;
+    min-height: 100px;
+    overflow: hidden;
+    border-radius: 5px;
+    cursor: pointer;
+
+    img {
+      max-width: 100px;
+      height: auto;
+    }
+
+    &::before {
+      display: none;
+      position: absolute;
+      content: '  ';
+      top: 50%;
+      left: 50%;
+      background: rgba(#333, 1);
+      border: solid 2px #333;
+      width: 30px;
+      height: 30px;
+      transform: translate(-50%, -50%);
+      z-index: 100;
+      border-radius: 50%;
+    }
+
+    &--now-playing {
+      &::before {
+        display: block;
+      }
+
+      img {
+        animation: rotate 3s linear infinite;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        border: solid 2px #333;
+      }
+    }
+
+  }
+
+  .song-proposal__content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    padding-left: 0;
+    width: 100%;
+
+    @media #{$sm-up} {
+      margin-top: 0;
+      padding-left: 20px;
+    }
+
+    .song-proposal__content-item-name {
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .song-proposal__content-item-name,
+    .song-proposal__content-item-artist {
+      transition: color .1s ease-out;
+      outline: none;
+      cursor: pointer;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+
+    .song-proposal__content-item-created-by {
+      margin-top: auto;
+      font-size: 14px;
+
+      span {
+        color: $light-text-color;
+        transition: color .1s ease-out;
+        outline: none;
+        cursor: pointer;
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+
+  .song-proposal__button {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+
+    .song-proposal__button-item {
+      min-width: 25px;
+      min-height: 25px;
+      background: $primary-color;
+      border: solid 2px $primary-color;
+      border-radius: 50%;
+      font-size: 12px;
+      color: #fff;
+      box-shadow: 0 5px 10px 0 rgba(0,0,0,0.15);
+      cursor: pointer;
+
+      margin-right: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+
+      &:last-child {
+        margin-right: 0
+      }
+
+      &:first-child {
+        background: #e74c3c;
+        border-color: #e74c3c;
+
+        &:hover {
+          color: #e74c3c
+        }
+      }
+
+      &:last-child {
+        background: #2ecc71;
+        border-color: #2ecc71;
+
+        &:hover {
+          color: #2ecc71
+        }
+      }
+
+      &:hover {
+        background: #fff;
+      }
+    }
+  }
+}

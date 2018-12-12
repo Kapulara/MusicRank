@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 import { Subscription } from 'rxjs';
 import { TableColumn } from '../../../shared/table/table.component';
+import { SpotifyService } from '../spotify.service';
 import { SpotifyAlbumPageService } from './spotify-album-page.service';
 
 @Component({
@@ -14,20 +15,24 @@ export class SpotifyAlbumPageComponent implements AfterViewInit, OnDestroy {
   public columns: TableColumn[] = [
     {
       key: 'index',
-      name: '#'
+      name: '#',
+      hover: true
     },
     {
       type: 'image',
-      key: 'image'
+      key: 'image',
+      hover: true
     },
     {
       key: 'name',
       name: 'Name',
-      fill: true
+      fill: true,
+      hover: true
     },
     {
       key: 'time',
-      icon: 'mr-time-countdown-2'
+      icon: 'mr-time-countdown-2',
+      hover: true
     }
   ];
 
@@ -38,7 +43,8 @@ export class SpotifyAlbumPageComponent implements AfterViewInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     public spotifyAlbumPageService: SpotifyAlbumPageService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private spotifyService: SpotifyService
   ) {
     this.subscription = this.spotifyAlbumPageService
       .isLoading$
@@ -55,4 +61,23 @@ export class SpotifyAlbumPageComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  public async onRowClick({ row, column }) {
+    if ( row[ 'uri' ].indexOf('track') > -1 ) {
+      const track = _.findKey(this.spotifyAlbumPageService.album.tracks.items, { id: row.id });
+
+      if ( !_.isNil(track) ) {
+        const position = parseInt(track, 10);
+
+        this.spotifyService.play({
+          context_uri: this.spotifyAlbumPageService.album.uri,
+          offset: {
+            position
+          },
+          position_ms: 0
+        });
+      }
+    } else {
+      this.spotifyService.play(row[ 'uri' ]);
+    }
+  }
 }

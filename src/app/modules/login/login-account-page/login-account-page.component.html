@@ -6,6 +6,9 @@
     <mr-login-user [margin]="true">
     </mr-login-user>
     <div class="button-container button-container--margin-top">
+      <div class="button button--yellow" [routerLink]="'/s/user/' + securityService.user.spotifyId">SPOTIFY ACCOUNT&nbsp;<i class="mr-icon mr-small-right"></i></div>
+    </div>
+    <div class="button-container button-container--margin-less">
       <div class="button"
            [routerLink]="'/login/redirect'"
            [queryParams]="{ dialog: 'yes' }">SWITCH ACCOUNTS</div>

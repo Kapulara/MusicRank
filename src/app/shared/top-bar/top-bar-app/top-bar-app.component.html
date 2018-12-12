@@ -1,0 +1,56 @@
+<div class="top-bar">
+  <div class="top-bar__left">
+    <a class="top-bar__item top-bar__item--icon show-xs" (click)="menuService.setVisible(true)">
+      <i class="mr-icon mr-menu-34"></i>
+    </a>
+    <a class="top-bar__item top-bar__item--icon top-bar__item--less-margin hidden-xs" (click)="location.back()">
+      <i class="mr-icon mr-small-left"></i>
+    </a>
+    <a class="top-bar__item top-bar__item--icon hidden-xs" (click)="location.forward()">
+      <i class="mr-icon mr-small-right"></i>
+    </a>
+    <div class="top-bar__search" (window:keypress)="onWindowKeyPress($event)">
+      <i class="mr-icon mr-zoom-2"></i><input type="text" placeholder="Search" [(ngModel)]="spotifySearchPageService.searchString">
+    </div>
+    <a class="top-bar__item top-bar__item--icon show-xs" [routerLink]="'/s/' + spotifySearchPageService.searchString">
+      <i class="mr-icon mr-small-right"></i>
+    </a>
+  </div>
+  <div class="top-bar__right">
+    <ng-container *ngIf="securityService.user === null">
+      <a class="top-bar__item"
+         [routerLinkActive]="'top-bar__item--active'"
+         [routerLink]="'/login/redirect'">
+        Login
+      </a>
+    </ng-container>
+    <ng-container *ngIf="securityService.user !== null">
+      <ng-container *ngIf="spotifyService?.activeSong?.item?.album?.id !== null">
+        <a class="top-bar__item hidden-xs"
+           *ngIf="spotifyService?.activeSong?.context?.type !== 'playlist'"
+           [routerLink]="'/s/album/' + spotifyService?.activeSong?.item?.album?.id">
+          <div class="top-bar__item-image" [ngClass]="{ 'top-bar__item-image--is-playing': spotifyService?.activeSong?.is_playing }">
+            <img [attr.src]="spotifyService?.activeSong?.item?.album?.images[0].url" alt="">
+          </div>
+          {{ spotifyService?.activeSong?.item?.name }}&nbsp;-&nbsp;{{ spotifyService?.activeSong?.item?.artists[0].name }}
+        </a>
+        <a class="top-bar__item hidden-xs"
+           *ngIf="spotifyService?.activeSong?.context?.type === 'playlist'"
+           [routerLink]="'/s/playlist/' + getPlaylist()">
+          <div class="top-bar__item-image" [ngClass]="{ 'top-bar__item-image--is-playing': spotifyService?.activeSong?.is_playing }">
+            <img [attr.src]="spotifyService?.activeSong?.item?.album?.images[0].url" alt="">
+          </div>
+          {{ spotifyService?.activeSong?.item?.name }}&nbsp;-&nbsp;{{ spotifyService?.activeSong?.item?.artists[0].name }}
+        </a>
+        <a class="top-bar__item top-bar__item--disabled hidden-xs">
+          |
+        </a>
+      </ng-container>
+      <a class="top-bar__item"
+         [routerLinkActive]="'top-bar__item--active'"
+         [routerLink]="'/login/account'">
+        <span>{{ securityService.user.name }}</span>
+      </a>
+    </ng-container>
+  </div>
+</div>

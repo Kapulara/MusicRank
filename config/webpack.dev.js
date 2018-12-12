@@ -21,6 +21,7 @@ module.exports = function(options) {
   const ENV = (process.env.ENV = process.env.NODE_ENV = 'development');
   const HOST = process.env.HOST || 'localhost';
   const PORT = process.env.PORT || 3000;
+  console.log(HOST);
 
   const METADATA = Object.assign({}, buildUtils.DEFAULT_METADATA, {
     host: HOST,

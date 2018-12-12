@@ -11,17 +11,20 @@ import { PreloadAllModules, RouterModule } from '@angular/router';
 import { environment } from 'environments/environment';
 
 import '../styles/include.scss';
+import { ScrollSpyModule } from 'ngx-scrollspy';
 // App is our top level component
 import { AppComponent } from './app.component';
 import { ROUTES } from './app.routes';
 import { AppState } from './app.service';
 import { CoreModule } from './core/core.module';
+import { CommunityModule } from './modules/community/community.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { HomeModule } from './modules/home/home.module';
 import { LoginModule } from './modules/login/login.module';
 import { SpotifyModule } from './modules/spotify/spotify.module';
 import { MenuModule } from './shared/menu/menu.module';
 import { SharedModule } from './shared/shared.module';
+import { TopBarModule } from './shared/top-bar/top-bar.module';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -70,11 +73,14 @@ export class CustomLocationStrategy extends HashLocationStrategy {
     HomeModule,
     LoginModule,
     SpotifyModule,
+    CommunityModule,
+    ScrollSpyModule.forRoot(),
 
     // Extra
     CoreModule,
     SharedModule,
-    MenuModule
+    MenuModule,
+    TopBarModule
   ],
   /**
    * Expose our Services and Providers into Angular's dependency injection.

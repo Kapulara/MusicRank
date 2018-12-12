@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TableColumn } from '../../../shared/table/table.component';
 import { SpotifyAlbumPageService } from '../spotify-album-page/spotify-album-page.service';
+import { SpotifyService } from '../spotify.service';
 import { SpotifyArtistPageService } from './spotify-artist-page.service';
 
 @Component({
@@ -12,16 +13,19 @@ export class SpotifyArtistPageComponent implements AfterViewInit {
   public columns: TableColumn[] = [
     {
       key: 'index',
-      name: '#'
+      name: '#',
+      hover: true,
     },
     {
       type: 'image',
-      key: 'image'
+      key: 'image',
+      hover: true,
     },
     {
       key: 'name',
       name: 'Name',
-      fill: true
+      fill: true,
+      hover: true,
     },
     {
       key: 'album',
@@ -31,11 +35,13 @@ export class SpotifyArtistPageComponent implements AfterViewInit {
     },
     {
       key: 'time',
-      icon: 'mr-time-countdown-2'
+      icon: 'mr-time-countdown-2',
+      hover: true,
     },
     {
       key: 'popularity',
-      type: 'popularity'
+      type: 'popularity',
+      hover: true,
     }
   ];
 
@@ -44,6 +50,7 @@ export class SpotifyArtistPageComponent implements AfterViewInit {
 
   constructor(
     public spotifyArtistPageService: SpotifyArtistPageService,
+    private spotifyService: SpotifyService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
@@ -58,6 +65,8 @@ export class SpotifyArtistPageComponent implements AfterViewInit {
     console.log(columnWithType);
     if ( columnWithType.type === 'album' ) {
       this.router.navigate([ '/s/album/' + row[ columnWithType.key ].id ]);
+    } else {
+      this.spotifyService.play(row['uri']);
     }
   }
 }

@@ -2,6 +2,9 @@
   <div class="login-user__image" *ngIf="securityService?.user?.spotifyInformation?.json?.images.length > 0">
     <img [attr.src]="securityService?.user?.spotifyInformation?.json?.images[0].url">
   </div>
+  <div class="login-user__image" *ngIf="securityService?.user?.spotifyInformation?.json?.images.length === 0">
+    <img [attr.src]="'https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=60'">
+  </div>
   <div class="login-user__content">
     <div class="login-user__name">{{ securityService?.user?.name }}</div>
     <div class="login-user__email">{{ securityService?.user?.email }}</div>

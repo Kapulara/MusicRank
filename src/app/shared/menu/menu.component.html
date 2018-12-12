@@ -18,11 +18,17 @@
         </div>
       </ng-container>
       <ng-container *ngIf="securityService.user !== null">
+        <!--<div class="menu-list__item menu-list__item&#45;&#45;bold"-->
+             <!--[routerLink]="'/dashboard'"-->
+             <!--[routerLinkActive]="'menu-list__item&#45;&#45;active'"-->
+             <!--(click)="menuService.setVisible(false)">-->
+          <!--Dashboard-->
+        <!--</div>-->
         <div class="menu-list__item menu-list__item--bold"
-             [routerLink]="'/dashboard'"
+             [routerLink]="'/community'"
              [routerLinkActive]="'menu-list__item--active'"
              (click)="menuService.setVisible(false)">
-          Dashboard
+          Community
         </div>
       </ng-container>
       <div class="menu-list__divider"></div>

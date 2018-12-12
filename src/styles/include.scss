@@ -4,3 +4,27 @@
 @import "icon/icons";
 @import "modules/base";
 @import "shared/base";
+
+.hidden-xs {
+  display: none !important;
+
+  @media #{$sm-up} {
+    display: flex !important;
+  }
+}
+
+.show-xs {
+  display: flex !important;
+
+  @media #{$sm-up} {
+    display: none !important;
+  }
+}
+
+.hidden-xs-block {
+  display: none !important;
+
+  @media #{$sm-up} {
+    display: block;
+  }
+}

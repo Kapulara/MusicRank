@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
 import { Subscription } from 'rxjs';
 import { TableColumn } from '../../../shared/table/table.component';
+import { SpotifyService } from '../spotify.service';
 import { SpotifyPlaylistPageService } from './spotify-playlist-page.service';
 
 @Component({
@@ -10,36 +11,6 @@ import { SpotifyPlaylistPageService } from './spotify-playlist-page.service';
   templateUrl: './spotify-playlist-page.component.html'
 })
 export class SpotifyPlaylistPageComponent implements AfterViewInit, OnDestroy {
-
-  public columns: TableColumn[] = [
-    {
-      key: 'index',
-      name: '#'
-    },
-    {
-      type: 'image',
-      key: 'image'
-    },
-    {
-      key: 'name',
-      name: 'Name',
-      fill: true
-    },
-    {
-      key: 'album',
-      type: 'album',
-      hover: true,
-      name: 'Album'
-    },
-    {
-      key: 'time',
-      icon: 'mr-time-countdown-2'
-    },
-    {
-      key: 'popularity',
-      type: 'popularity'
-    },
-  ];
 
   @ViewChild('spotifyPlaylistSideBar')
   private spotifyPlaylistSideBar: ElementRef;
@@ -49,6 +20,7 @@ export class SpotifyPlaylistPageComponent implements AfterViewInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     public spotifyPlaylistPageService: SpotifyPlaylistPageService,
     private changeDetectorRef: ChangeDetectorRef,
+    private spotifyService: SpotifyService,
     private router: Router
   ) {
     this.subscription = this.spotifyPlaylistPageService
@@ -71,6 +43,8 @@ export class SpotifyPlaylistPageComponent implements AfterViewInit, OnDestroy {
     console.log(columnWithType);
     if ( columnWithType.type === 'album' ) {
       this.router.navigate([ '/s/album/' + row[ columnWithType.key ].id ]);
+    } else {
+      this.spotifyService.playPlaylist(row['playlistUri'], row.index - 1);
     }
   }
 }

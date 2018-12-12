@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 import { Subscription } from 'rxjs';
+import { ApiService } from '../../../core/security/api.service';
 import { SideBarService } from '../../../shared/side-bar/side-bar.service';
 import { SideBarStyles } from '../../../shared/side-bar/side-bar.styles';
 
@@ -29,9 +30,9 @@ export class LoginRedirectPageComponent implements OnDestroy, AfterViewInit {
   }
 
   public ngAfterViewInit() {
-    let url = 'http://localhost:9090/v1/spotify';
+    let url = `${ApiService.host}/v1/spotify`;
     if ( this.showDialog ) {
-      url = 'http://localhost:9090/v1/spotify/dialog';
+      url = `${ApiService.host}/v1/spotify/dialog`;
     }
 
     this.timeout = setTimeout(() => window.location.replace(url), 1000);

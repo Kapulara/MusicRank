@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, Injectable } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import { ApiService } from '../../../core/security/api.service';
 import { SecurityService } from '../../../core/security/security.service';
@@ -20,7 +20,6 @@ export class SpotifyArtistPageService {
     underTitle: any;
     followers: any;
   } = null;
-  private id = '';
 
   constructor(
     private securityService: SecurityService,
@@ -45,15 +44,24 @@ export class SpotifyArtistPageService {
     return popularityItems;
   }
 
+  public static formatFollowers(followers) {
+    if ( followers <= 999 ) {
+      return followers;
+    } else if ( followers >= 1e3 && followers <= 999999 ) {
+      return (followers / 1e3).toFixed(3);
+    } else if ( followers >= 1e6 && followers <= 999999999 ) {
+      return (followers / 1e6).toFixed(1) + ' million';
+    } else if ( followers >= 1e9 && followers <= 999999999999 ) {
+      return (followers / 1e9).toFixed(1) + ' billion';
+    } else {
+      return followers;
+    }
+  }
+
   public async load(
     id: any,
     sideBar: ElementRef
   ) {
-    if ( this.id === id ) {
-      this.setSideBar(sideBar);
-      return;
-    }
-    this.id = id;
     this.isLoading = true;
     const { err, data: artist } = await this.httpClient.post(
       `${ApiService.host}/v1/spotify/api/getArtist`,
@@ -62,7 +70,6 @@ export class SpotifyArtistPageService {
     ).toPromise() as any;
     this.artist = artist;
     this.setSideBar(sideBar);
-
 
     const { data: response } = await this.httpClient.post(
       `${ApiService.host}/v1/spotify/api/getArtistTopTracks`,
@@ -75,6 +82,9 @@ export class SpotifyArtistPageService {
       item,
       index
     ) => ({
+      id: item.id,
+      uri: item.uri,
+      trackId: item.id,
       index: index + 1,
       name: item.name,
       image: item.album.images[ 0 ].url,
@@ -92,12 +102,13 @@ export class SpotifyArtistPageService {
       this.securityService.generateRequestOptions()
     ).toPromise() as any;
 
-    this.moreBy = albums.items.map(({ id: albumId, name, images, artists }) => ({
+    this.moreBy = albums.items.map(({ id: albumId, release_date, name, images, artists }) => ({
       id: albumId,
       name,
-      image: !_.isNil(images[ 0 ]) ? images[ 0 ].url : '',
+      date: moment(release_date),
+      image: !_.isNil(images[ 0 ]) ? images[ 0 ].url : 'https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=60',
       artist: artists[ 0 ].name
-    }));
+    })).sort((a, b) => b.date.isBefore(a.date) ? -1 : 1);
 
     const { data: relatedArtistsResponse } = await this.httpClient.post(
       `${ApiService.host}/v1/spotify/api/getArtistRelatedArtists`,
@@ -108,7 +119,7 @@ export class SpotifyArtistPageService {
     this.relatedArtists = relatedArtistsResponse.artists.map(({ id: artistId, name, images }) => ({
       id: artistId,
       name,
-      image: !_.isNil(images[ 0 ]) ? images[ 0 ].url : ''
+      image: !_.isNil(images[ 0 ]) ? images[ 0 ].url : 'https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=60'
     }));
 
     this.isLoading = false;
@@ -152,31 +163,15 @@ export class SpotifyArtistPageService {
     return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
   }
 
-  private formatFollowers() {
-    const followers = this.artist.followers.total;
-    // hundreds
-    if ( followers <= 999 ) {
-      return followers;
-    } else if ( followers >= 1e3 && followers <= 999999 ) {
-      return (followers / 1e3).toFixed(3);
-    } else if ( followers >= 1e6 && followers <= 999999999 ) {
-      return (followers / 1e6).toFixed(1) + ' million';
-    } else if ( followers >= 1e9 && followers <= 999999999999 ) {
-      return (followers / 1e9).toFixed(1) + ' billion';
-    } else {
-      return followers;
-    }
-  }
-
   private setSideBar(sideBar: ElementRef) {
     this.templateContext = {
-      imageSource: !_.isNil(this.artist.images[ 0 ]) ? this.artist.images[ 0 ].url : '',
+      imageSource: !_.isNil(this.artist.images[ 0 ]) ? this.artist.images[ 0 ].url : 'https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=60',
       title: this.artist.name,
       underTitle: this.formatGenres(),
-      followers: this.formatFollowers()
+      followers: SpotifyArtistPageService.formatFollowers(this.artist.followers.total)
     };
     this.sideBarService.set({
-      source: !_.isNil(this.artist.images[ 0 ]) ? this.artist.images[ 0 ].url : '',
+      source: !_.isNil(this.artist.images[ 0 ]) ? this.artist.images[ 0 ].url : 'https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=60',
       smallImage: true,
       showBackground: true,
       template: sideBar,

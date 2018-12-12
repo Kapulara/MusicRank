@@ -1,7 +1,21 @@
 .side-bar {
   overflow: hidden;
   position: relative;
-  height: 100%;
+  min-height: 40px;
+  width: 100%;
+
+  .side-bar-content {
+    display: none !important;
+  }
+
+  @media #{$sm-up} {
+    height: 100%;
+    width: auto;
+
+    .side-bar-content {
+      display: flex !important;
+    }
+  }
 
   .side-bar__open {
     position: absolute;
@@ -143,6 +157,11 @@
     height: 2px;
   }
 
+  .side-bar-content__x-small {
+    margin-top: 20px;
+    font-size: 12px;
+  }
+
   .side-bar-content__small {
     display: flex;
     flex-direction: row;
@@ -160,7 +179,7 @@
 
   .side-bar-content__info {
     margin-bottom: 25px;
-    padding: 0 60px;
+    padding: 0 20px;
 
     .side-bar-content__title {
       font-size: 36px;

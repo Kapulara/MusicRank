@@ -1,7 +1,8 @@
 /**
  * Angular 2 decorators and services
  */
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ViewEncapsulation } from '@angular/core';
+import { ScrollSpyService } from 'ngx-scrollspy';
 import { AppState } from './app.service';
 
 export const ROOT_SELECTOR = 'app';
@@ -15,9 +16,15 @@ export const ROOT_SELECTOR = 'app';
   encapsulation: ViewEncapsulation.None,
   templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   constructor(
-    public appState: AppState
+    public appState: AppState,
+    private scrollSpyService: ScrollSpyService
   ) {
+  }
+
+  public ngAfterViewInit() {
+    this.appState.scrollObservable$ = this.scrollSpyService.getObservable('right-container');
+    this.appState.initScrollObservable$.next(this.appState.scrollObservable$);
   }
 }

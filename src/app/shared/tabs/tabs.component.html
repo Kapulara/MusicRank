@@ -1,0 +1,7 @@
+<div class="tabs">
+  <div class="tabs__item"
+       *ngFor="let tab of tabs" [ngClass]="{ 'tabs__item--active': activeTab?.key === tab?.key } "
+       (click)="onTabClick(tab)">
+    {{ tab.name }}&nbsp;<div class="tabs__item-count" *ngIf="tab.count !== undefined">{{ tab.count }}</div>
+  </div>
+</div>

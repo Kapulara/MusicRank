@@ -20,13 +20,12 @@ export class SpotifyUserPageService {
     imageSource: any;
     artistId: any;
     title: any;
-    amountSongs: any;
+    followers: any;
   } = null;
   public rows: any[] = [];
   public playlists: any[] = [];
   public artists: any[] = [];
   public albums: any[] = [];
-  public id: string = '';
 
   constructor(
     private securityService: SecurityService,
@@ -40,12 +39,6 @@ export class SpotifyUserPageService {
     id: any,
     sideBar: ElementRef
   ) {
-    if ( this.id === id ) {
-      this.setSideBar(sideBar);
-      return;
-    }
-    this.id = id;
-
     this.isLoading = true;
     this.isLoading$.next(this.isLoading);
 
@@ -81,7 +74,7 @@ export class SpotifyUserPageService {
     this.playlists = userPlaylists.items.map(({ id: playlistId, name, images }) => ({
       id: playlistId,
       name,
-      image: !_.isNil(images[ 0 ]) ? images[ 0 ].url : ''
+      image: !_.isNil(images[ 0 ]) ? images[ 0 ].url : 'https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=60'
     }));
 
     // this.albums = this.user.albums.items.map(({ id: albumId, name, images, artists }) => ({
@@ -107,13 +100,13 @@ export class SpotifyUserPageService {
 
   private setSideBar(sideBar) {
     this.templateContext = {
-      imageSource: this.user.images[ 0 ].url,
+      imageSource: !_.isNil(this.user.images[ 0 ]) ? this.user.images[ 0 ].url : 'https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=60',
       title: this.user.display_name,
       artistId: this.user.id,
-      amountSongs: this.user.followers
+      followers: SpotifyArtistPageService.formatFollowers(this.user.followers.total)
     };
     this.sideBarService.set({
-      source: this.user.images[ 0 ].url,
+      source: !_.isNil(this.user.images[ 0 ]) ? this.user.images[ 0 ].url : 'https://images.unsplash.com/photo-1484069560501-87d72b0c3669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=60',
       smallImage: true,
       showBackground: true,
       template: sideBar,

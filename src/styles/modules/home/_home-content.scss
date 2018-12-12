@@ -6,8 +6,8 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin-left: 80px;
-
+  padding: 20px;
+  margin-top: 20px;
 
   .home-content__welcome {
     font-family: 'Poppins', sans-serif;
@@ -36,5 +36,11 @@
 
   .home-content__buttons {
     margin-top: 40px;
+  }
+
+  @media #{$sm-up} {
+    margin-top: 0;
+    margin-left: 80px;
+    padding: 0;
   }
 }
